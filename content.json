@@ -1,0 +1,241 @@
+{
+  "site": {
+    "name": "VideoTV",
+    "logoIcon": "📺",
+    "logoText": "VideoTV",
+    "phone": "400-888-8888",
+    "email": "business@videotvai.com",
+    "icp": "湘ICP备12345678号",
+    "address": "湖南省长沙市",
+    "company": "湖南复胜科技有限公司"
+  },
+  "navbar": {
+    "solutionsLabel": "解决方案",
+    "productsLabel": "产品服务",
+    "ctaText": "获取方案",
+    "ctaLink": "about.html#contact"
+  },
+  "hero": {
+    "index": {
+      "badge": "专业直播解决方案服务商",
+      "titlePrefix": "企业直播",
+      "titleHighlight": "一站式",
+      "titleSuffix": "解决方案",
+      "subtitle1": "从方案设计到落地部署，提供全流程专业服务",
+      "subtitle2": "覆盖电商、医疗、教育、大健康等多行业场景",
+      "cta1": "探索解决方案",
+      "cta1Link": "#solutions",
+      "cta2": "获取专属方案",
+      "cta2Link": "about.html#contact"
+    },
+    "about": {
+      "badge": "关于我们",
+      "title": "专业直播解决方案服务商",
+      "subtitle": "腾讯云、保利威、华为云官方授权代理"
+    }
+  },
+  "stats": {
+    "item1Value": "500+",
+    "item1Label": "服务企业",
+    "item2Value": "10000+",
+    "item2Label": "直播场次",
+    "item3Value": "99.9%",
+    "item3Label": "服务可用"
+  },
+  "contact": {
+    "title": "获取专属方案",
+    "subtitle": "我们的专家将在24小时内与您联系",
+    "email": "business@videotvai.com",
+    "phone": "400-888-8888",
+    "address": "湖南省长沙市"
+  },
+  "footer": {
+    "company": "湖南复胜科技有限公司",
+    "icp": "湘ICP备12345678号",
+    "address": "湖南省长沙市",
+    "links": [
+      { "text": "关于我们", "href": "about.html" },
+      { "text": "博客", "href": "blog.html" },
+      { "text": "隐私政策", "href": "#" }
+    ]
+  },
+  "about": {
+    "company": "湖南复胜科技有限公司",
+    "founded": "2018年",
+    "mission": "让直播更简单",
+    "agents": "腾讯云、保利威、华为云官方授权代理",
+    "description": "VideoTV是湖南复胜科技有限公司旗下品牌，专注企业直播解决方案，整合腾讯云、保利威、华为云等头部平台技术，为电商、医疗、教育、大健康等行业提供一站式音视频服务。"
+  },
+  "scenarios": [
+    {
+      "id": "ecommerce",
+      "icon": "🛒",
+      "name": "电商直播",
+      "title": "电商直播",
+      "desc": "带货/促销/招商",
+      "link": "live-ecommerce.html",
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "miniprogram",
+      "icon": "📱",
+      "name": "小程序直播",
+      "title": "小程序直播",
+      "desc": "私域流量变现",
+      "link": "live-miniprogram.html",
+      "color": "#4ECDC4"
+    },
+    {
+      "id": "medical",
+      "icon": "🏥",
+      "name": "医疗会议",
+      "title": "医疗会议",
+      "desc": "学术交流/远程会诊",
+      "link": "live-medical.html",
+      "color": "#45B7D1"
+    },
+    {
+      "id": "surgery",
+      "icon": "🔬",
+      "name": "手术示教",
+      "title": "手术示教",
+      "desc": "手术转播/教学录制",
+      "link": "live-surgery.html",
+      "color": "#96CEB4"
+    },
+    {
+      "id": "health",
+      "icon": "💚",
+      "name": "大健康直播",
+      "title": "大健康直播",
+      "desc": "健康科普/慢病管理",
+      "link": "live-health.html",
+      "color": "#DDA0DD"
+    }
+  ],
+  "products": [
+    {
+      "id": "live",
+      "icon": "🎥",
+      "name": "直播服务",
+      "title": "直播服务",
+      "desc": "企业直播/年会直播",
+      "link": "live-products.html"
+    },
+    {
+      "id": "vod",
+      "icon": "📼",
+      "name": "点播服务",
+      "title": "点播服务",
+      "desc": "视频存储/管理/分发",
+      "link": "vod-products.html"
+    },
+    {
+      "id": "ai",
+      "icon": "🤖",
+      "name": "AI智能服务",
+      "title": "AI智能服务",
+      "desc": "数字人/智能剪辑",
+      "link": "ai-products.html"
+    },
+    {
+      "id": "face",
+      "icon": "👤",
+      "name": "人脸核身",
+      "title": "人脸核身",
+      "desc": "身份认证/在线核验",
+      "link": "face-auth.html"
+    }
+  ],
+  "pages": {
+    "live-ecommerce": {
+      "id": "ecommerce",
+      "filename": "live-ecommerce.html",
+      "title": "电商直播解决方案",
+      "metaDesc": "VideoTV电商直播解决方案，支持淘宝、京东、抖音、快手等多平台，为企业提供带货直播、促销直播、招商直播一站式服务。",
+      "heroTitle": "电商直播解决方案",
+      "heroSubtitle": "打通淘宝、京东、抖音、快手，支持多平台同时推流",
+      "featuresTitle": "核心能力",
+      "features": [
+        { "icon": "📡", "title": "多平台推流", "desc": "一键同步至淘宝直播、京东直播、抖音、快手等20+平台" },
+        { "icon": "🛒", "title": "商品管理", "desc": "内置商品库，支持直播中实时上下架、价格修改、库存同步" },
+        { "icon": "💬", "title": "互动弹幕", "desc": "实时弹幕、弹幕蒙版防录屏、弹幕过滤、智能回复" },
+        { "icon": "📊", "title": "数据大屏", "desc": "实时观看人数、互动率、转化率数据大屏展示" }
+      ],
+      "usecaseTitle": "适用场景",
+      "useCases": [
+        { "title": "品牌带货直播", "desc": "新品发布、限时促销、爆款打造" },
+        { "title": "招商直播", "desc": "面向经销商、代理商的线上招商宣讲" },
+        { "title": "门店直播", "desc": "线下门店联动线上，引流到店消费" }
+      ],
+      "faqTitle": "常见问题",
+      "faq": [
+        { "q": "支持哪些电商平台？", "a": "支持淘宝直播、京东直播、抖音、快手、微信视频号、小红书等主流平台。" },
+        { "q": "能否私有化部署？", "a": "支持，支持部署到企业自有服务器，数据完全自主掌控。" },
+        { "q": "直播延迟是多少？", "a": "标准版延迟3-5秒，低延迟版可达1秒以内。" }
+      ],
+      "ctaTitle": "获取电商直播方案",
+      "ctaText": "联系我们",
+      "ctaLink": "about.html#contact"
+    },
+    "live-medical": {
+      "id": "medical",
+      "filename": "live-medical.html",
+      "title": "医疗会议直播解决方案",
+      "metaDesc": "VideoTV医疗会议直播系统，满足医疗机构合规要求，支持学术会议、远程会诊、医疗培训等场景。",
+      "heroTitle": "医疗会议直播解决方案",
+      "heroSubtitle": "等保三级认证，满足医疗机构严格合规要求",
+      "featuresTitle": "核心能力",
+      "features": [
+        { "icon": "🔒", "title": "合规保障", "desc": "等保三级认证，数据传输AES-256加密，满足医疗行业合规要求" },
+        { "icon": "🎥", "title": "多地连线", "desc": "支持异地嘉宾视频连线，唇音同步，电信级稳定性" },
+        { "icon": "📝", "title": "会议管理", "desc": "参会人员权限管理、观看凭证、会议录制存档" },
+        { "icon": "📱", "title": "移动端适配", "desc": "微信内直接观看，无需下载APP，支持H5和小程序" }
+      ],
+      "usecaseTitle": "适用场景",
+      "useCases": [
+        { "title": "学术会议直播", "desc": "全国性医学学术会议手术转播，线上线下同步观摩" },
+        { "title": "远程会诊", "desc": "多科室专家异地会诊，实时共享病历资料" },
+        { "title": "医疗培训", "desc": "新医术、药品、医疗设备使用培训，支持课后考核" }
+      ],
+      "faqTitle": "常见问题",
+      "faq": [
+        { "q": "是否支持手术室环境？", "a": "支持，专业手术示教设备，可适应手术室无影灯等复杂环境。" },
+        { "q": "数据是否境内存储？", "a": "支持数据存放在企业指定服务器，完全满足数据不出境要求。" },
+        { "q": "能否对接医院HIS系统？", "a": "可提供API接口，与医院现有HIS/PACS系统对接。" }
+      ],
+      "ctaTitle": "获取医疗直播方案",
+      "ctaText": "联系我们",
+      "ctaLink": "about.html#contact"
+    },
+    "live-health": {
+      "id": "health",
+      "filename": "live-health.html",
+      "title": "大健康直播解决方案",
+      "metaDesc": "VideoTV大健康直播解决方案，适用于健康讲座、慢病管理、营养课堂、健身指导等场景。",
+      "heroTitle": "大健康直播解决方案",
+      "heroSubtitle": "覆盖健康科普、慢病管理、营养课堂、健身指导全场景",
+      "featuresTitle": "核心能力",
+      "features": [
+        { "icon": "👥", "title": "私域沉淀", "desc": "直播间用户一键沉淀至企业微信，支持标签化管理" },
+        { "icon": "💊", "title": "慢病管理", "desc": "联合医疗机构，提供直播+随访管理一体化方案" },
+        { "icon": "📚", "title": "健康课堂", "desc": "系列课程管理，支持回放、划重点、课后作业" },
+        { "icon": "🏃", "title": "健身指导", "desc": "实时动作示范，多视角切换，支持连麦互动" }
+      ],
+      "usecaseTitle": "适用场景",
+      "useCases": [
+        { "title": "健康讲座", "desc": "营养师、专家健康科普，吸引潜在客户" },
+        { "title": "慢病管理", "desc": "糖尿病、高血压等慢病患者教育管理" },
+        { "title": "健身直播", "desc": "教练在线指导，会员制私教课" }
+      ],
+      "faqTitle": "常见问题",
+      "faq": [
+        { "q": "是否需要相关资质？", "a": "内容需符合平台医疗健康内容规范，具体可咨询我们的合规团队。" },
+        { "q": "能否收费观看？", "a": "支持单次付费、会员订阅、课程包等多种商业模式。" }
+      ],
+      "ctaTitle": "获取大健康直播方案",
+      "ctaText": "联系我们",
+      "ctaLink": "about.html#contact"
+    }
+  }
+}

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="腾讯云TRTC实时音视频SDK集成完全指南2026版。含Web端/微信小程序/uni-app三种主流集成方案，附完整代码示例与常见错误解析。">
+    <meta name="keywords" content="腾讯云TRTC集成,TRTC SDK,实时音视频SDK,Web端TRTC,小程序TRTC集成,uniapp TRTC,VideoTV">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="腾讯云TRTC实时音视频SDK集成完全指南（2026版）">
+    <meta property="og:description" content="Web/小程序/uni-app三种集成方案，附完整代码示例与常见错误码解析。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.videotvai.com/blog/trtc-sdk-integration-guide.html">
+    <title>腾讯云TRTC实时音视频SDK集成完全指南（2026版） | VideoTV</title>
+    <link rel="canonical" href="https://www.videotvai.com/blog/trtc-sdk-integration-guide.html">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .blog-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .blog-header { margin-bottom: 40px; }
+        .blog-meta { font-size: 14px; color: #888; margin-bottom: 12px; }
+        .blog-tag { display: inline-block; background: linear-gradient(135deg, #4F46E5, #7C3AED); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-right: 10px; }
+        .blog-title { font-size: 32px; line-height: 1.3; margin-bottom: 16px; color: #1a1a2e; }
+        .blog-subtitle { font-size: 18px; color: #666; line-height: 1.6; }
+        .blog-content { font-size: 16px; line-height: 1.8; color: #333; }
+        .blog-content h2 { font-size: 22px; margin: 36px 0 14px; color: #1a1a2e; border-left: 4px solid #4F46E5; padding-left: 12px; }
+        .blog-content h3 { font-size: 17px; margin: 20px 0 10px; color: #333; }
+        .blog-content p { margin-bottom: 14px; }
+        .blog-content ul, .blog-content ol { margin: 14px 0; padding-left: 24px; }
+        .blog-content li { margin-bottom: 6px; }
+        .blog-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        .blog-content th { background: #4F46E5; color: white; padding: 10px 12px; text-align: left; }
+        .blog-content td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+        .blog-content pre { background: #1e1e2e; color: #cdd6f4; padding: 16px 20px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin: 16px 0; }
+        .blog-content code { background: #f0f0f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Courier New', monospace; }
+        .blog-content pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+        .blog-quote { background: linear-gradient(135deg, #f0f0ff, #fff); border-left: 4px solid #4F46E5; padding: 16px 20px; margin: 20px 0; border-radius: 0 12px 12px 0; }
+        .blog-quote strong { color: #4F46E5; }
+        .blog-cta { background: linear-gradient(135deg, #4F46E5, #7C3AED); color: white; padding: 28px; border-radius: 16px; text-align: center; margin: 36px 0; }
+        .blog-cta h3 { margin-bottom: 10px; font-size: 18px; }
+        .blog-cta p { margin-bottom: 14px; opacity: 0.9; font-size: 14px; }
+        .blog-cta .btn { display: inline-block; background: white; color: #4F46E5; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .error-box { background: #fff5f5; border: 1px solid #ffcccc; border-radius: 8px; padding: 16px; margin: 16px 0; }
+        .error-box h4 { margin: 0 0 8px; color: #c00; font-size: 14px; }
+        .error-box li { font-size: 13px; margin-bottom: 4px; }
+        .step-box { border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 20px; margin: 16px 0; background: #fafafa; }
+        .step-box h4 { margin: 0 0 8px; color: #4F46E5; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container navbar-content">
+            <a href="../index.html" class="logo"><span class="logo-icon">📺</span><span class="logo-text">VideoTV</span></a>
+            <nav class="nav-links">
+                <a href="../live-ecommerce.html" class="nav-link">电商直播</a>
+                <a href="../live-medical.html" class="nav-link">医疗会议</a>
+                <a href="../live-surgery.html" class="nav-link">手术示教</a>
+                <a href="../live-health.html" class="nav-link">大健康</a>
+                <a href="../blog.html" class="nav-link">博客</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <div class="blog-header">
+            <div class="blog-meta">
+                <span class="blog-tag">技术教程</span>
+                <span>2026年4月12日</span>
+                <span> · </span>
+                <span>阅读时长 8 分钟</span>
+            </div>
+            <h1 class="blog-title">腾讯云TRTC实时音视频SDK集成完全指南（2026版）</h1>
+            <p class="blog-subtitle">Web端、微信小程序、uni-app三种主流集成方案完整代码示例，附TRTC服务开通步骤与常见错误码解析。</p>
+        </div>
+
+        <article class="blog-content">
+            <p>腾讯云实时音视频（TRTC）是目前国内企业直播、在线教育、医疗问诊等场景中使用最广泛的实时音视频底层服务之一。很多企业在选型后会面临一个问题：<strong>SDK怎么集成到我们自己的系统里？</strong></p>
+            <p>本文从实操角度，覆盖三种最主流的集成场景，附可直接复制使用的代码示例。</p>
+
+            <h2>一、集成前准备：开通TRTC服务</h2>
+
+            <div class="step-box">
+                <h4>步骤1：腾讯云实名认证</h4>
+                <p>登录 <a href="https://cloud.tencent.com" target="_blank">腾讯云官网</a>，完成个人或企业实名认证。未实名账号无法开通TRTC服务。</p>
+            </div>
+
+            <div class="step-box">
+                <h4>步骤2：创建TRTC应用</h4>
+                <p>进入「云产品」→「实时音视频」→「应用管理」→「创建应用」，填写应用名称（通常用产品名），获取 <code>SDKAppID</code>。</p>
+            </div>
+
+            <div class="step-box">
+                <h4>步骤3：获取密钥</h4>
+                <p>在「应用信息」页面，找到「密钥」模块。TRTC使用<strong>对称加密</strong>（UserSig机制），需要SecretKey生成用户签名。</p>
+                <p>⚠️ SecretKey是高度敏感信息，<strong>不要硬编码在前端代码里</strong>，必须放在后端服务器生成签名。</p>
+            </div>
+
+            <h2>二、Web端集成（Vue3 + TRTC Web SDK）</h2>
+
+            <h3>2.1 安装依赖</h3>
+            <pre><code>npm install trtc-js-sdk --save</code></pre>
+
+            <h3>2.2 核心代码：创建客户端并加入房间</h3>
+            <pre><code>import TRTCCloud from 'trtc-js-sdk';
+
+// 创建TRTC客户端实例
+const trtc = TRTCCloud.create({
+    sdkAppId: 1400000000,  // 替换为你的SDKAppID
+    userId: 'user_' + Math.random().toString(36).substr(2, 8),
+    userSig: '',            // 由后端生成，前端不要硬编码
+    sessionId: 'page_live',
+    role: 'anchor',         // anchor=主播，audience=观众
+});
+
+// 监听事件
+trtc.on(TRTCCloud.EVENT.LOCAL_VIDEO_VIEWReady, () => {
+    console.log('本地视频已就绪');
+});
+
+trtc.on(TRTCCloud.EVENT.ERROR, (e) => {
+    console.error('TRTC错误:', e);
+});
+
+// 加入房间
+trtc.enterRoom({ roomId: 123456 }).then(() => {
+    console.log('成功进入房间');
+    // 启动本地预览
+    trtc.startLocalVideo();
+}).catch((err) => {
+    console.error('进入房间失败:', err);
+});</code></pre>
+
+            <h3>2.3 推流核心代码</h3>
+            <pre><code>// 开始推流（将本地音视频发布到房间）
+trtc.startLocalAudio().catch((err) => {
+    console.error('开启麦克风失败:', err);
+});
+
+// 订阅远端用户
+trtc.on(TRTCCloud.EVENT.REMOTE_USER_ENTER, (userId) => {
+    console.log('远端用户加入:', userId);
+    // 自动订阅
+    trtc.subscribeRemoteUser(userId);
+});
+
+trtc.on(TRTCCloud.EVENT.REMOTE_VIDEO_VIEW_READY, (userId) => {
+    console.log('远端用户视频就绪:', userId);
+    // 将远端视频渲染到页面
+    const remoteView = trtc.createRemoteView(userId);
+    document.getElementById('remote-container').appendChild(remoteView);
+    remoteView.start({ userId, streamType: TRTCCloud.STREAM_TYPE.VIDEO });
+});</code></pre>
+
+            <h3>2.4 退出房间</h3>
+            <pre><code>// 离开房间时调用
+trtc.exitRoom().then(() => {
+    console.log('成功离开房间');
+    trtc.destroy();
+}).catch((err) => {
+    console.error('离开房间异常:', err);
+});</code></pre>
+
+            <div class="blog-quote">
+                <strong>⚠️ Web端注意：</strong>TRTC Web SDK需要<strong>HTTPS</strong>环境（即使是localhost也需特殊配置）。开发阶段可使用 <code>http://localhost</code>，但生产环境必须是HTTPS。可使用nginx配置SSL证书。
+            </div>
+
+            <h2>三、微信小程序集成（TRTC插件方式）</h2>
+
+            <h3>3.1 开通小程序直播资质</h3>
+            <p>在微信公众平台 → 「直播」 → 「直播组件」申请开通。需要：</p>
+            <ul>
+                <li>已认证的小程序主体（企业认证）</li>
+                <li>类目符合《微信小程序直播功能准入要求》</li>
+                <li>近半年无严重违规记录</li>
+            </ul>
+
+            <h3>3.2 插件方式集成</h3>
+            <p>在 <code>project.config.json</code> 中声明插件：</p>
+            <pre><code>{
+  "plugins": {
+    "tencentcloud-trtc": {
+      "provider": "wxapkg2c9xxxxxx",
+      "version": "1.0.0"
+    }
+  }
+}</code></pre>
+
+            <h3>3.3 推流核心代码（小程序）</h3>
+            <pre><code>// pages/live/live.js
+const TRTC = requirePlugin('tencentcloud-trtc').plugin;
+
+Page({
+    data: {
+        pusherContext: null,
+        roomId: 123456,
+        userId: 'user_' + Math.random().toString(36).substr(2, 8),
+    },
+
+    onLoad() {
+        this.initTRTC();
+    },
+
+    initTRTC() {
+        const pusher = wx.createLivePusherContext();
+        this.setData({ pusherContext: pusher });
+
+        // 监听推流事件
+        pusher.onPush((e) => {
+            if (e.detail.code === 200) {
+                console.log('推流成功');
+            } else {
+                console.error('推流失败:', e.detail);
+            }
+        });
+    },
+
+    startPush() {
+        // 页面中需要有 &lt;live-pusher&gt; 组件
+        this.data.pusherContext.start();
+    },
+
+    stopPush() {
+        this.data.pusherContext.stop();
+    },
+})</code></pre>
+
+            <h3>3.4 页面wxml结构</h3>
+            <pre><code>&lt;!-- pages/live/live.wxml --&gt;
+&lt;live-pusher
+    url="{{pushUrl}}"
+    mode="RTC"
+    autopush="{{true}}"
+    bind:pushstatus="onPushStatus"
+    style="width:100%;height:300px;"
+/&gt;
+
+&lt;!-- 拉流列表 --&gt;
+&lt;view wx:for="{{remoteUsers}}" wx:key="userId"&gt;
+    &lt;live-player
+        src="{{item.url}}"
+        mode="RTC"
+        autoplay="{{true}}"
+        style="width:100%;height:200px;"
+    /&gt;
+&lt;/view&gt;</code></pre>
+
+            <h2>四、uni-app集成（腾讯云TRTC插件）</h2>
+
+            <p>uni-app 集成TRTC有两种方式：通过插件市场的插件，或使用腾讯云原生SDK（uni-app nvue 页面）。推荐使用插件方式，集成更快。</p>
+
+            <h3>4.1 插件安装</h3>
+            <p>在 HBuilderX → 插件市场 → 搜索「腾讯云TRTC」→ 安装到项目。</p>
+
+            <h3>4.2 App端推流核心代码</h3>
+            <pre><code>// App端推流
+const TRTCCalling = uni.requireNativePlugin('GDT_TRTC');
+
+export default {
+    data() {
+        return {
+            sdkAppId: 1400000000,
+            roomId: 123456,
+            userId: 'user_' + Math.random().toString(36).substr(2, 8),
+        }
+    },
+    methods: {
+        startLive() {
+            TRTCCalling.createTRTCInstance({
+                sdkAppId: this.sdkAppId,
+            });
+
+            TRTCCalling.enterRoom({
+                roomId: this.roomId,
+                userId: this.userId,
+                userSig: this.getUserSigFromServer(), // 后端获取
+                role: 'anchor',
+            }, (res) => {
+                console.log('进入房间成功', res);
+                // 开启本地预览
+                TRTCCalling.startLocalPreview();
+            });
+        },
+
+        getUserSigFromServer() {
+            // ⚠️ 必须从后端接口获取，这里是示意代码
+            // 真实场景：uni.request({ url: 'YOUR_SERVER/api/getUserSig' })
+            return '';
+        },
+    }
+}</code></pre>
+
+            <h2>五、TRTC常见错误码及解决方案</h2>
+
+            <div class="error-box">
+                <h4>⚠️ 高频错误码</h4>
+                <ul>
+                    <li><code>-1003</code>：签名验证失败 — 检查userSig是否正确生成，secretKey是否匹配</li>
+                    <li><code>-1006</code>：房间进入失败 — 房间ID是否存在，roomId类型是否为number</li>
+                    <li><code>-1007</code>：SDKAppID不匹配 — 确认前端SDKAppID与控制台创建的一致</li>
+                    <li><code>-1021</code>：网络超时 — 检查服务器与TRTC接入点的网络延迟</li>
+                    <li><code>-1022</code>：进房超时 — 通常是跨地域接入问题，可尝试配置就近接入</li>
+                    <li><code>-1004</code>：TRTC服务未开通 — 去腾讯云控制台开通服务</li>
+                    <li><code>-7001</code>：userSig已过期 — userSig有效期默认24小时，重新从后端获取</li>
+                </ul>
+            </div>
+
+            <h2>六、自建后端生成UserSig（Node.js示例）</h2>
+            <p>UserSig必须放在后端生成，以下是Node.js示例：</p>
+            <pre><code>// server/genUserSig.js
+const crypto = require('crypto');
+
+function genUserSig(sdkAppId, secretKey, userId, EXPIRE_TIME = 86400 * 180) {
+    const now = Math.floor(Date.now() / 1000);
+    const param = {
+        "ver": "1.0",
+        "SdkAppId": sdkAppId,
+        "UserId": userId,
+        "Time": now,
+        "ExpireTime": now + EXPIRE_TIME,
+    };
+
+    const json = JSON.stringify(param);
+    const compressed = Buffer.from(json).toString('base64');
+    const signature = crypto
+        .createHmac('sha256', secretKey)
+        .update(compressed)
+        .digest('hex');
+
+    return Buffer.from(JSON.stringify({
+        signature: signature,
+        t: now,
+        expireTime: now + EXPIRE_TIME,
+    })).toString('base64');
+}
+
+module.exports = genUserSig;</code></pre>
+
+            <div class="blog-cta">
+                <h3>VideoTV · TRTC集成实施服务</h3>
+                <p>自有技术团队，提供腾讯云TRTC SDK集成、uni-app插件开发、小程序直播定制全流程服务。支持上门驻场或远程实施。</p>
+                <a href="../live-products.html" class="btn">获取集成方案 →</a>
+            </div>
+
+            <h2>相关阅读</h2>
+            <ul>
+                <li><a href="ecommerce-live-streaming-guide.html">《电商直播系统搭建完整指南》</a> — 电商直播全攻略</li>
+                <li><a href="enterprise-live-pricing-2026.html">《企业直播平台多少钱？2026年价格体系解读》</a> — TRTC成本怎么算</li>
+                <li><a href="how-to-choose-live-platform.html">《腾讯云TRTC直播代理商怎么选？4个判断标准》</a> — 选代理商防坑</li>
+            </ul>
+        </article>
+
+        <div class="blog-nav">
+            <a href="enterprise-live-platform-2026.html">← 上一篇：企业直播平台怎么选？</a>
+            <a href="medical-conference-live-system.html">下一篇：医疗会议直播系统怎么选？ →</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-links">
+                <h4>产品服务</h4>
+                <ul>
+                    <li><a href="../live-products.html">直播服务</a></li>
+                    <li><a href="../vod-products.html">点播服务</a></li>
+                    <li><a href="../ai-products.html">AI智能服务</a></li>
+                    <li><a href="../face-auth.html">人脸核身</a></li>
+                    <li><a href="../blog.html">博客</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>关于我们</h4>
+                <ul>
+                    <li><a href="../about.html">关于我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>联系咨询</h4>
+                <ul>
+                    <li><a href="tel:400-000-0000">400-000-0000</a></li>
+                    <li><a href="mailto:contact@videotvai.com">contact@videotvai.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 VideoTV 保留所有权利 | 京ICP备XXXXXXXX号</p>
+        </div>
+    </footer>
+</body>
+</html>
