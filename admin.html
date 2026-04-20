@@ -726,6 +726,10 @@ function generatePageHtml() {
     ${faqH?`<section class="faq-section"><div class="container"><h2 class="section-title">${p.faqTitle}</h2>${faqH}</div></section>`:''}
     <section class="cta-section"><div class="container"><h2>${p.ctaTitle}</h2><p>留下您的联系方式，专业顾问将在24小时内与您联系</p><a href="${p.ctaLink}" class="btn btn-primary" style="background:white;color:#4F46E5;">${p.ctaText}</a></div></section>
     <footer class="footer"><div>© 2024 VideoTV. All rights reserved.</div></footer>
+<!-- 百度自动推送 -->
+<script>
+(function(){var bp=document.createElement("script");bp.src="https://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(bp,s)})();
+</script>
 </body>
 </html>`;
     const blob = new Blob([html], {type:'text/html'});
@@ -801,6 +805,10 @@ function showToast(msg) {
 // ========== Init ==========
 if (sessionStorage.getItem('videotv_logged_in') === '1') { document.body.classList.add('logged-in'); loadContent(); }
 window.addEventListener('beforeunload', e => { if (isDirty) { e.preventDefault(); e.returnValue = ''; } });
+</script>
+<!-- 百度自动推送 -->
+<script>
+(function(){var bp=document.createElement("script");bp.src="https://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(bp,s)})();
 </script>
 </body>
 </html>
