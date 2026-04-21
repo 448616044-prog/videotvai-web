@@ -57,18 +57,25 @@
         init() {
             this.menuBtn = document.getElementById('mobileMenuBtn');
             this.mobileMenu = document.getElementById('mobileMenu');
-            
+
             if (!this.menuBtn || !this.mobileMenu) return;
 
             this.menuBtn.addEventListener('click', () => this.toggle());
-            
+
             // 点击菜单外部关闭
             document.addEventListener('click', (e) => {
-                if (this.isOpen && 
-                    !this.mobileMenu.contains(e.target) && 
+                if (this.isOpen &&
+                    !this.mobileMenu.contains(e.target) &&
                     !this.menuBtn.contains(e.target)) {
                     this.close();
                 }
+            });
+
+            // 点击菜单内链接后关闭
+            this.mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (this.isOpen) this.close();
+                });
             });
 
             // ESC键关闭菜单
