@@ -1,4 +1,13 @@
+# VideoTV 官网 robots.txt
+
 User-agent: *
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot
 Allow: /
 
 Sitemap: https://www.videotvai.com/sitemap.xml
