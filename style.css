@@ -321,11 +321,14 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     right: 0;
     bottom: 0;
+    height: calc(100vh - 72px);
     background: var(--bg-white);
     padding: 24px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
     overflow-y: auto;
     z-index: 1001;
     pointer-events: none;
+    box-sizing: border-box;
 }
 
 .mobile-menu.active {
@@ -2455,6 +2458,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .mobile-menu {
         top: 60px;
+        height: calc(100vh - 60px);
     }
 
     /* ---- Footer 移动端 ---- */
@@ -2621,7 +2625,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ---- iOS Safari 安全区域 ---- */
 @supports (padding: env(safe-area-inset-bottom)) {
     .mobile-menu {
-        padding-bottom: env(safe-area-inset-bottom);
+        padding-bottom: calc(24px + env(safe-area-inset-bottom));
     }
 
     .footer {
