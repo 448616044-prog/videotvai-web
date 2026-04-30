@@ -1,0 +1,52 @@
+name: Deploy to Tencent COS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install coscmd
+      run: pip install coscmd
+    
+    - name: Configure COS
+      env:
+        SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+        SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+        BUCKET: ${{ secrets.COS_BUCKET }}
+        REGION: ${{ secrets.COS_REGION }}
+      run: |
+        coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+    
+    - name: Upload to COS
+      run: |
+        coscmd upload -rs --delete -f ./ / --ignore "./.git/*"
+        echo "✅ Deployed to COS"
+    
+    - name: Purge CDN Cache
+      env:
+        SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+        SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+      run: |
+        # 刷新网站首页缓存
+        curl -s "https://cdn.tencentcloudapi.com/?Action=PurgeUrlsCache&Version=2018-06-06&Urls.0=https://${{ secrets.COS_DOMAIN }}/" \
+          -H "Authorization: TC3-HMAC-SHA256" || true
+        echo "✅ CDN cache purged"
+    
+    - name: Baidu Push
+      env:
+        BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+      run: |
+        # 更新百度token
+        sed -i "s/\*\*\*/$BAIDU_TOKEN/g" baidu_push.py
+        python3 baidu_push.py
