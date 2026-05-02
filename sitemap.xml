@@ -1,183 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://www.videotvai.com/</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/about</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/contact</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/solutions</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/articles/trtc-getting-started.html</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/articles/uniapp-live-plugin.html</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/articles/medical-live-solution.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/live-ecommerce.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/private-ecommerce-live.html</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/articles/saas-comparison.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/live-miniprogram.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/tencent-live-agent.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/live-medical.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/trtc-pricing.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/live-surgery.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/surgery-teaching-live.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/live-health.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/live-products.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/education-live-platform.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/vod-products.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/health-live-scenario.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/ai-products.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/enterprise-live-room.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/face-auth.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/about.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog.html</loc>
-        <lastmod>2026-04-19</lastmod>
+        <loc>https://videotvai.com/articles/live-replay-storage.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/blog/enterprise-live-platform-2026.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/medical-conference-live-system.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/how-to-choose-live-platform.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/xiaoe-migration-guide.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/trtc-sdk-integration-guide.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/ecommerce-live-streaming-guide.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/health-live-streaming-guide.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/surgery-live-system.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/health-live-system.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/enterprise-live-platform-2026-guide.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/ai-in-enterprise-live.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/2026-medical-conference-live-platform.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/2026-health-live-platform.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/2026-medical-academic-live-platform-guide.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/academic-conference-live-system.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/enterprise-live-pricing-2026.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.videotvai.com/blog/medical-live-compliance-guide-2026.html</loc>
-        <lastmod>2026-05-01</lastmod>
+        <loc>https://videotvai.com/articles/video-security.html</loc>
+        <lastmod>2026-05-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.videotvai.com/blog/medical-live-platform-comparison-2026.html</loc>
-        <lastmod>2026-05-01</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://videotvai.com/articles/cdn-acceleration.html</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/articles/multi-platform-streaming.html</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://videotvai.com/articles/live-danmaku.html</loc>
+        <lastmod>2026-05-02</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
 </urlset>
