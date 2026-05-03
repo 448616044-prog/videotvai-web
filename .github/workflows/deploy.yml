@@ -21,7 +21,7 @@ jobs:
           command_timeout: 120s
           script: |
             set -e
-            cd /var/www/videotvai.com
+            cd /var/www/videotvai
             git fetch origin
             git reset --hard origin/main
             echo "✅ 部署完成: $(git log --oneline -1)"
