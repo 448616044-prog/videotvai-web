@@ -1,0 +1,27 @@
+name: Deploy to Tencent CVM
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.CVM_HOST }}
+          username: ${{ secrets.CVM_USER }}
+          key: ${{ secrets.CVM_SSH_KEY }}
+          port: 22
+          command_timeout: 120
+          script: |
+            set -e
+            cd /var/www/videotvai.com
+            git fetch origin
+            git reset --hard origin/main
+            echo "✅ 部署完成: $(git log --oneline -1)"
