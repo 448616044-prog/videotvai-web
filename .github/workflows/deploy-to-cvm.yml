@@ -19,15 +19,10 @@ jobs:
         key: ${{ secrets.CVM_SSH_KEY }}
         command_timeout: 120
         script: |
-          set -e
-          DEPLOY_DIR="/var/www/videotvai"
-          # 修复目录权限（服务器目录为root创建）
-          sudo chown -R ubuntu:ubuntu $DEPLOY_DIR
-          # 进入目录并拉取最新代码
-          cd $DEPLOY_DIR
+          cd /var/www/videotvai
           git fetch origin
           git reset --hard origin/main
-          echo "✅ Deploy OK: $(git log --oneline -1)"
+          echo "✅ 部署完成: $(git log --oneline -1)"
 
     - name: Verify
       run: |
