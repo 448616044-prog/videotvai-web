@@ -10,19 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Deploy via SSH
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.CVM_HOST }}
         username: ${{ secrets.CVM_USER }}
         key: ${{ secrets.CVM_SSH_KEY }}
+        command_timeout: 120
         script: |
-          cd /var/www/videotvai
-          git pull origin main
-          echo "✅ 部署完成 at $(date)"
-    
-    - name: Notify
-      if: always()
+          DEPLOY_DIR="/var/www/videotvai"
+          # 修复目录权限（目录是root创建的）
+          sudo chown -R ubuntu:ubuntu $DEPLOY_DIR
+          # 进入目录并拉取最新代码
+          cd $DEPLOY_DIR
+          git fetch origin
+          git reset --hard origin/main
+          echo "✅ 部署完成: $(git log --oneline -1)"
+          echo "📅 时间: $(date)"
+
+    - name: Verify
       run: |
-        echo "📧 部署状态: ${{ job.status }}"
+        echo "📍 GitHub最新: $(git log --oneline -1)"
+        echo "🌐 访问: https://www.videotvai.com"
