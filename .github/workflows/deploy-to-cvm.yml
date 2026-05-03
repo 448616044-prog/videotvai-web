@@ -18,7 +18,7 @@ jobs:
         username: ${{ secrets.CVM_USER }}
         key: ${{ secrets.CVM_SSH_KEY }}
         script: |
-          cd /var/www/videotvai.com
+          cd /var/www/videotvai
           git pull origin main
           echo "✅ 部署完成 at $(date)"
     
