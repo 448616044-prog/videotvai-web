@@ -21,6 +21,11 @@ jobs:
         mkdir -p ~/.ssh
         ssh-keyscan -H ${{ secrets.CVM_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
     
+    - name: Test SSH Connection
+      run: |
+        echo "🔍 测试SSH连接..."
+        ssh -o StrictHostKeyChecking=no ${{ secrets.CVM_USER }}@${{ secrets.CVM_HOST }} "echo '✅ SSH连接成功'" || (echo "❌ SSH连接失败" && exit 1)
+    
     - name: Deploy to CVM
       env:
         CVM_HOST: ${{ secrets.CVM_HOST }}
