@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Deploy via SSH
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1
       with:
         host: ${{ secrets.CVM_HOST }}
         username: ${{ secrets.CVM_USER }}
@@ -23,8 +23,3 @@ jobs:
           git fetch origin
           git reset --hard origin/main
           echo "✅ 部署完成: $(git log --oneline -1)"
-
-    - name: Verify
-      run: |
-        echo "✅ GitHub commit: $(git log --oneline -1)"
-        echo "🌐 https://www.videotvai.com"
