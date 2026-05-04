@@ -1,0 +1,34 @@
+name: Submit to Baidu on Deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'blog/**'
+      - 'sitemap.xml'
+
+jobs:
+  baidu-submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract new article URLs
+        id: extract
+        run: |
+          # 获取最新的sitemap.xml
+          curl -s https://www.videotvai.com/sitemap.xml > sitemap.xml
+          # 提取blog文章的URL（只取最近2个，避免超过配额）
+          URLs=$(grep -oP 'https://www\.videotvai\.com/blog/[^<]+\.html' sitemap.xml | head -2)
+          echo "urls=$URLs" >> $GITHUB_OUTPUT
+          echo "Found URLs: $URLs"
+
+      - name: Submit to Baidu
+        run: |
+          echo "${{ steps.extract.outputs.urls }}" | while read url; do
+            if [ -n "$url" ]; then
+              echo "Submitting: $url"
+              curl -H "Content-Type: text/plain" \
+                   --data-binary "$url" \
+                   "http://data.zz.baidu.com/urls?site=https://www.videotvai.com&token=K4kVPs6NwjtWr4ij"
+              echo ""
+            fi
+          done
