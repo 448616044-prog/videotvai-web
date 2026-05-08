@@ -114,13 +114,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-outline {
     background: transparent;
-    color: var(--text-dark);
-    border: 1px solid var(--border);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
 .btn-outline:hover {
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: #fff;
+    background: rgba(255,255,255,0.1);
 }
 
 .btn-white {
@@ -821,9 +821,11 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(4px);
 }
 
-/* Card Title {
+/* Hero Card Title */
+.hero-card .card-title {
     font-size: 14px;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.95);
+    font-weight: 600;
 }
 
 .card-body {
@@ -838,9 +840,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .data-item {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.12);
     border-radius: var(--radius-md);
     padding: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
 }
 
 .data-value {
@@ -851,8 +854,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .data-label {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
 }
 
 .data-trend {
@@ -866,13 +870,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .chart-placeholder {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.1);
     border-radius: var(--radius-md);
     padding: 16px;
     height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .chart-bars {
