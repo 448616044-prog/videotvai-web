@@ -231,7 +231,71 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
-/* Mobile Menu Button */
+/* 导航项容器 - 下拉菜单 */
+.nav-item {
+    position: relative;
+}
+
+.nav-item .nav-link {
+    cursor: pointer;
+}
+
+/* 下拉菜单 */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    min-width: 280px;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--gray-200);
+    padding: var(--space-2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    z-index: 1001;
+}
+
+.nav-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 下拉菜单项 */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background: var(--primary-bg);
+}
+
+.dropdown-item .item-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.dropdown-item .item-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.dropdown-item .item-desc {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 2px;
+}
+
+/* 移动端菜单按钮 */
 .mobile-menu-btn {
     display: none;
     flex-direction: column;
@@ -256,6 +320,64 @@ h1, h2, h3, h4, h5, h6 {
     .mobile-menu-btn {
         display: flex;
     }
+    
+    .navbar-actions {
+        display: none;
+    }
+}
+
+/* 移动端菜单 */
+.mobile-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    padding: var(--space-4);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    z-index: 999;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: var(--space-4);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.mobile-nav-link:hover {
+    color: var(--primary);
+    background: var(--primary-bg);
+}
+
+.mobile-nav-link.cta {
+    margin-top: var(--space-4);
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    border-bottom: none;
+}
+
+.mobile-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: var(--space-4) 0;
+}
+
+/* 导航栏操作按钮 */
+.navbar-actions {
+    margin-left: var(--space-4);
+    flex-shrink: 0;
 }
 
 /* ========================================
