@@ -9,7 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -19,9 +20,65 @@ jobs:
           key: ${{ secrets.CVM_SSH_KEY }}
           port: 22
           command_timeout: 120s
+          timeout: 180s
           script: |
             set -e
+            
+            echo "🔄 开始部署 VideoTV 网站..."
+            echo "📁 当前目录: $(pwd)"
+            
+            # 进入网站目录
             cd /var/www/videotvai
+            
+            # 检查目录是否存在
+            if [ ! -d ".git" ]; then
+              echo "❌ Git仓库未初始化，正在初始化..."
+              git init
+              git remote add origin https://github.com/videotvai/videotvai-web.git
+            fi
+            
+            # 获取最新代码
+            echo "📥 拉取最新代码..."
             git fetch origin
+            
+            # 检查远程分支是否存在
+            if git rev-parse --verify origin/main >/dev/null 2>&1; then
+              echo "✅ origin/main 分支存在"
+            else
+              echo "❌ origin/main 分支不存在，尝试使用 main..."
+              git fetch origin main 2>/dev/null || echo "警告: 无法获取main分支"
+            fi
+            
+            # 重置到最新版本
+            echo "🔄 重置到最新版本..."
             git reset --hard origin/main
-            echo "✅ 部署完成: $(git log --oneline -1)"
+            
+            # 显示部署信息
+            echo "✅ 部署完成!"
+            echo "📝 最新提交: $(git log --oneline -1)"
+            echo "👤 提交作者: $(git log --1 --format='%an')"
+            echo "📅 提交时间: $(git log --1 --format='%ai')"
+            
+            # 验证文件存在
+            if [ -f "index.html" ]; then
+              echo "✅ index.html 存在"
+            else
+              echo "❌ 警告: index.html 不存在!"
+            fi
+            
+            # 重启Web服务（如果使用nginx）
+            if command -v nginx &> /dev/null; then
+              echo "🔄 重启 Nginx 服务..."
+              sudo nginx -t && sudo systemctl reload nginx
+              echo "✅ Nginx 已重启"
+            fi
+            
+            echo "🎉 部署流程完成!"
+
+      - name: Deployment Status
+        if: always()
+        run: |
+          echo "========================================"
+          echo "📊 部署任务状态: ${{ job.status }}"
+          echo "⏰ 完成时间: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "========================================"
