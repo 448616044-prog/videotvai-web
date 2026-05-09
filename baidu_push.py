@@ -15,6 +15,7 @@ def get_local_urls():
     urls = set()
     html_dir = os.path.dirname(os.path.abspath(__file__))
     skip = {"baidu_verify_codeva-4mRLvHLcFK.html", "admin.html"}
+    # 根目录HTML
     for f in glob.glob(os.path.join(html_dir, "*.html")):
         fname = os.path.basename(f)
         if fname in skip:
@@ -23,6 +24,12 @@ def get_local_urls():
             urls.add(f"https://{SITE}/")
         else:
             urls.add(f"https://{SITE}/{fname}")
+    # blog目录HTML
+    blog_dir = os.path.join(html_dir, "blog")
+    if os.path.exists(blog_dir):
+        for f in glob.glob(os.path.join(blog_dir, "*.html")):
+            fname = os.path.basename(f)
+            urls.add(f"https://{SITE}/blog/{fname}")
     return sorted(urls)
 
 def push(urls):
