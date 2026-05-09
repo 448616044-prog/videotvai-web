@@ -19,13 +19,13 @@ jobs:
           CVM_USER: ${{ secrets.CVM_USER }}
         run: |
           set -e
-          
+
           echo "🔄 开始部署 VideoTV 网站..."
-          
+
           # 解码 SSH 私钥（支持 Base64 编码或不编码两种格式）
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          
+
           if echo "$SSH_KEY_BASE64" | base64 -d &>/dev/null; then
             echo "$SSH_KEY_BASE64" | base64 -d > ~/.ssh/deploy_key
             echo "✅ SSH 密钥已解码（Base64 格式）"
@@ -33,9 +33,9 @@ jobs:
             echo "$SSH_KEY_BASE64" > ~/.ssh/deploy_key
             echo "✅ SSH 密钥已读取（明文格式）"
           fi
-          
+
           chmod 600 ~/.ssh/deploy_key
-          
+
           # 验证密钥格式
           if grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key; then
             echo "✅ SSH 密钥格式验证通过"
@@ -43,59 +43,64 @@ jobs:
             echo "❌ SSH 密钥格式错误"
             exit 1
           fi
-          
+
           # 添加服务器到 known_hosts
           ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
-          
+
           # 在远程服务器执行部署
           echo "📥 连接服务器并部署..."
-          
+
           ssh -i ~/.ssh/deploy_key $CVM_USER@$CVM_HOST << 'ENDSSH'
             set -e
-            
+
             echo "📁 当前目录: $(pwd)"
-            
+
             # 进入网站目录
             cd /var/www/videotvai
-            
+
             # 检查目录是否存在
             if [ ! -d ".git" ]; then
               echo "❌ Git仓库未初始化，正在初始化..."
               git init
               git remote add origin git@github.com:448616044-prog/videotvai-web.git
             fi
-            
+
+            # 修复权限问题：先更改目录所有者为当前用户
+            echo "🔧 修复目录权限..."
+            sudo chown -R $USER:$USER /var/www/videotvai
+            echo "✅ 目录权限已修复"
+
             # 获取最新代码
             echo "📥 拉取最新代码..."
             git fetch origin
-            
+
             # 重置到最新版本
             echo "🔄 重置到最新版本..."
             git reset --hard origin/main
-            
+
             # 显示部署信息
             echo "✅ 部署完成!"
             echo "📝 最新提交: $(git log --oneline -1)"
             echo "👤 提交作者: $(git log -1 --format='%an')"
             echo "📅 提交时间: $(git log -1 --format='%ai')"
-            
+
             # 验证文件存在
             if [ -f "index.html" ]; then
               echo "✅ index.html 存在"
             else
               echo "❌ 警告: index.html 不存在!"
             fi
-            
+
             # 重启Web服务（如果使用nginx）
             if command -v nginx &> /dev/null; then
               echo "🔄 重启 Nginx 服务..."
               sudo nginx -t && sudo systemctl reload nginx
               echo "✅ Nginx 已重启"
             fi
-            
+
             echo "🎉 部署流程完成!"
           ENDSSH
-          
+
           echo "========================================"
           echo "📊 部署任务状态: 成功"
           echo "⏰ 完成时间: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
