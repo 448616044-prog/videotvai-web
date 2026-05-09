@@ -639,70 +639,6 @@
     };
 
     // ========================================
-    // 导航栏Active状态（根据当前页面自动设置）
-    // ========================================
-    
-    const NavigationActive = {
-        init() {
-            // 获取当前页面文件名
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            
-            // 页面与导航项的映射
-            const pageMap = {
-                // 首页 - 无需高亮
-                'index.html': null,
-                // 主导航链接
-                'live-products.html': { desktop: 'live-products.html', mobile: 'live-products.html' },
-                'vod-products.html': { desktop: 'vod-products.html', mobile: 'vod-products.html' },
-                'ai-products.html': { desktop: 'ai-products.html', mobile: 'ai-products.html' },
-                'blog.html': { desktop: 'blog.html', mobile: 'blog.html' },
-                'about.html': { desktop: 'about.html', mobile: 'about.html' },
-                'face-auth.html': { desktop: null, mobile: 'face-auth.html' },
-                // 解决方案子页面 - 高亮"解决方案"主导航
-                'live-ecommerce.html': { desktop: 'solutions', mobile: 'live-ecommerce.html' },
-                'live-miniprogram.html': { desktop: 'solutions', mobile: 'live-miniprogram.html' },
-                'live-medical.html': { desktop: 'solutions', mobile: 'live-medical.html' },
-                'live-surgery.html': { desktop: 'solutions', mobile: 'live-surgery.html' },
-                'live-health.html': { desktop: 'solutions', mobile: 'live-health.html' }
-            };
-            
-            const target = pageMap[currentPage];
-            if (!target) return;
-            
-            // 处理桌面端导航
-            if (target.desktop) {
-                if (target.desktop === 'solutions') {
-                    // 解决方案子页面：高亮"解决方案"下拉菜单触发器
-                    const solutionsNav = document.querySelector('.nav-item:first-child > .nav-link') || 
-                                          document.querySelector('a[href="index.html#solutions"]');
-                    if (solutionsNav) {
-                        solutionsNav.classList.add('active');
-                    }
-                } else {
-                    // 其他页面：高亮对应的导航链接
-                    const navLinks = document.querySelectorAll('.nav-links > .nav-link');
-                    navLinks.forEach(link => {
-                        if (link.getAttribute('href') === target.desktop) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            }
-            
-            // 处理移动端导航
-            if (target.mobile) {
-                const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-                mobileLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && href.includes(target.mobile)) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        }
-    };
-
-    // ========================================
     // 页面加载完成后初始化
     // ========================================
 
@@ -719,7 +655,6 @@
         ProductLinks.init();
         FormContact.init();
         FaqAccordion.init();
-        NavigationActive.init();  // 添加导航高亮初始化
 
         console.log('🎉 VideoTV 官网脚本加载完成！');
     }
