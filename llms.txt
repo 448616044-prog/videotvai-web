@@ -1,0 +1,57 @@
+# VideoTV AI — 企业级直播技术服务商
+> 专为企业提供医疗、电商、企业培训场景的专业直播解决方案
+
+## 核心服务
+- 医疗直播：手术示教系统、学术会议直播、远程会诊 | https://www.videotvai.com/live-medical.html
+- 电商直播：私域电商直播间、小程序直播 | https://www.videotvai.com/live-ecommerce.html
+- 企业培训：内部培训直播、年会直播 | https://www.videotvai.com/index.html
+- 小程序直播：微信私域直播方案 | https://www.videotvai.com/live-miniprogram.html
+- 点播产品：视频存储、回放、AI剪辑 | https://www.videotvai.com/vod-products.html
+
+## 内容资源
+- 博客文章列表：https://www.videotvai.com/blog.html
+- 关于我们：https://www.videotvai.com/about.html
+
+## 博客文章索引 (31篇)
+
+### 医疗直播专题
+- 2026医疗直播整体解决方案 | /blog/2026-medical-live-solution-complete.html
+- 2026医疗学术会议直播平台选择 | /blog/2026-medical-academic-live-platform-guide.html
+- 2026大健康直播平台指南 | /blog/2026-health-live-platform.html
+- 2026医疗会议直播平台 | /blog/2026-medical-conference-live-platform.html
+- 手术直播患者隐私AI脱敏方案 | /blog/surgery-live-privacy-ai-protection.html
+- 药企学术推广RDPAC合规方案 | /blog/pharma-academic-live-rdpac-compliance.html
+- 手术示教直播系统 | /blog/surgery-teaching-live-system.html
+- 手术直播系统搭建 | /blog/surgery-live-system.html
+- 医疗会议直播系统 | /blog/medical-conference-live-system.html
+- 医疗直播合规指南2026 | /blog/medical-live-compliance-guide-2026.html
+
+### 企业直播专题
+- AI在企业直播中的6个落地场景 | /blog/ai-enterprise-live-2026.html
+- 企业直播平台选择2026 | /blog/enterprise-live-platform-2026.html
+- 企业直播设备清单 | /blog/enterprise-live-equipment-guide.html
+- 企业直播价格对比2026 | /blog/enterprise-live-price-comparison-2026.html
+- 企业直播费用2026 | /blog/enterprise-live-pricing-2026.html
+- AI助力企业直播 | /blog/ai-in-enterprise-live.html
+- 如何选择直播平台 | /blog/how-to-choose-live-platform.html
+- 企业直播低延迟方案 | /blog/low-latency-live-streaming.html
+
+### 技术专题
+- TRTC收费标准2026详解 | /blog/trtc-pricing-guide-2026.html
+- TRTC SDK集成指南 | /blog/trtc-sdk-integration-guide.html
+- 直播技术栈全攻略 | /blog/live-streaming-tech-stack-guide.html
+- 企业直播平台2026终极指南 | /blog/enterprise-live-platform-2026-guide.html
+
+### 电商/私域直播
+- 微信小程序私域直播5方案对比 | /blog/miniprogram-private-live-comparison-2026.html
+- 私域电商直播解决方案2026 | /blog/private-ecommerce-live-solution-2026.html
+- 电商直播运营指南 | /blog/ecommerce-live-streaming-guide.html
+
+### 健康/培训
+- 大健康直播系统 | /blog/health-live-system.html
+- 大健康直播指南 | /blog/health-live-streaming-guide.html
+- 科室培训直播设备 | /blog/department-training-live-equipment.html
+
+### 其他
+- 学术会议直播系统 | /blog/academic-conference-live-system.html
+- 小鹅通迁移指南 | /blog/xiaoe-migration-guide.html
