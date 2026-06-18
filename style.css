@@ -3546,3 +3546,15 @@ h1, h2, h3, h4, h5, h6 {
     height: 40px;
     margin-top: -40px;
 }
+
+
+/* E-E-A-T 署名栏 */
+.eeat-section { padding: 0 0 40px; }
+.eeat-bar { background: var(--bg-light, #f8f9fa); border: 1px solid var(--border-color, #e9ecef); border-radius: 12px; padding: 24px; }
+.eeat-row { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 16px; }
+.eeat-item { display: flex; flex-direction: column; gap: 4px; }
+.eeat-label { font-size: 12px; color: var(--text-secondary, #6c757d); }
+.eeat-value { font-size: 14px; font-weight: 500; color: var(--text-primary, #212529); }
+.eeat-note { font-size: 13px; color: var(--text-secondary, #6c757d); line-height: 1.6; margin: 0; padding-top: 12px; border-top: 1px solid var(--border-color, #e9ecef); }
+@media (max-width: 768px) { .eeat-row { gap: 16px; } }
+
