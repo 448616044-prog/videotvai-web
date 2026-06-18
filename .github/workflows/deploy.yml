@@ -47,57 +47,38 @@ jobs:
           # 添加服务器到 known_hosts
           ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
 
-          # 在远程服务器执行部署
-          echo "📥 连接服务器并部署..."
+          # SCP 直接传输文件到服务器（避免 CVM->GitHub 网络超时）
+          echo "📤 SCP 传输文件到服务器..."
 
-          ssh -i ~/.ssh/deploy_key $CVM_USER@$CVM_HOST << 'ENDSSH'
+          # 获取改动文件列表
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep '\.html$' || echo "")
+
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "📋 本次改动文件:"
+            echo "$CHANGED_FILES"
+
+            # SCP 逐个传输改动文件
+            echo "$CHANGED_FILES" | while read -r f; do
+              if [ -f "$f" ]; then
+                echo "  📤 $f"
+                scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$f" $CVM_USER@$CVM_HOST:/var/www/videotvai/"$f"
+              fi
+            done
+          else
+            echo "⚠️ 未检测到HTML变动，执行全量同步..."
+            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no *.html $CVM_USER@$CVM_HOST:/var/www/videotvai/ 2>/dev/null || true
+            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/ 2>/dev/null || true
+          fi
+
+          echo "✅ 文件传输完成"
+
+          # 远程验证并重启 nginx
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST << 'ENDSSH'
             set -e
-
-            echo "📁 当前目录: $(pwd)"
-
-            # 进入网站目录
             cd /var/www/videotvai
-
-            # 检查目录是否存在
-            if [ ! -d ".git" ]; then
-              echo "❌ Git仓库未初始化，正在初始化..."
-              git init
-              git remote add origin git@github.com:448616044-prog/videotvai-web.git
-            fi
-
-            # 修复权限问题：先更改目录所有者为当前用户
-            echo "🔧 修复目录权限..."
-            sudo chown -R $USER:$USER /var/www/videotvai
-            echo "✅ 目录权限已修复"
-
-            # 获取最新代码
-            echo "📥 拉取最新代码..."
-            git fetch origin
-
-            # 重置到最新版本
-            echo "🔄 重置到最新版本..."
-            git reset --hard origin/main
-
-            # 显示部署信息
-            echo "✅ 部署完成!"
-            echo "📝 最新提交: $(git log --oneline -1)"
-            echo "👤 提交作者: $(git log -1 --format='%an')"
-            echo "📅 提交时间: $(git log -1 --format='%ai')"
-
-            # 验证文件存在
-            if [ -f "index.html" ]; then
-              echo "✅ index.html 存在"
-            else
-              echo "❌ 警告: index.html 不存在!"
-            fi
-
-            # 重启Web服务（如果使用nginx）
-            if command -v nginx &> /dev/null; then
-              echo "🔄 重启 Nginx 服务..."
-              sudo nginx -t && sudo systemctl reload nginx
-              echo "✅ Nginx 已重启"
-            fi
-
+            echo "📁 部署目录: $(pwd)"
+            if [ -f "index.html" ]; then echo "✅ index.html 存在"; else echo "❌ 警告: index.html 不存在!"; fi
+            if command -v nginx &> /dev/null; then sudo nginx -t && sudo systemctl reload nginx && echo "✅ Nginx 已重启"; fi
             echo "🎉 部署流程完成!"
           ENDSSH
 
