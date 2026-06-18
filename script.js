@@ -666,4 +666,61 @@
         init();
     }
 
+    // ========================================
+    // 移动端底部留资浮条
+    // ========================================
+    (function initMobileCTA() {
+        function createMobileCTA() {
+            // 不显示在 contact 页面和 admin 页面
+            var path = window.location.pathname;
+            if (path.indexOf('/contact') !== -1 || path.indexOf('/admin') !== -1) return;
+
+            // 确定 about#contact 链接路径
+            var contactHref = path.indexOf('/blog/') !== -1 ? '../about.html#contact' : 'about.html#contact';
+
+            var bar = document.createElement('div');
+            bar.id = 'mobile-cta-bar';
+            bar.innerHTML = '<a href="' + contactHref + '" class="mobile-cta-btn">' +
+                '<span class="mobile-cta-icon">💬</span>' +
+                '<span class="mobile-cta-text">免费获取方案</span>' +
+                '<span class="mobile-cta-arrow">→</span>' +
+                '</a>';
+
+            document.body.appendChild(bar);
+
+            // CSS 注入
+            var style = document.createElement('style');
+            style.textContent = [
+                '#mobile-cta-bar {',
+                '  display:none;',
+                '  position:fixed; bottom:0; left:0; right:0; z-index:9999;',
+                '  padding:8px 16px; padding-bottom:max(8px, env(safe-area-inset-bottom));',
+                '  background:#534AB7;',
+                '  box-shadow:0 -2px 12px rgba(83,74,183,0.3);',
+                '}',
+                '.mobile-cta-btn {',
+                '  display:flex; align-items:center; justify-content:center; gap:8px;',
+                '  background:#fff; color:#534AB7;',
+                '  padding:12px 20px; border-radius:10px;',
+                '  text-decoration:none; font-weight:600; font-size:15px;',
+                '  transition:transform 0.15s, box-shadow 0.15s;',
+                '  box-shadow:0 2px 8px rgba(0,0,0,0.1);',
+                '}',
+                '.mobile-cta-btn:active { transform:scale(0.97); }',
+                '.mobile-cta-arrow { font-size:18px; }',
+                '@media (max-width: 768px) {',
+                '  #mobile-cta-bar { display:block; }',
+                '  body { padding-bottom:80px !important; }',
+                '}',
+            ].join('\n');
+            document.head.appendChild(style);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', createMobileCTA);
+        } else {
+            createMobileCTA();
+        }
+    })();
+
 })();
