@@ -913,6 +913,40 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+@media (max-width: 576px) {
+    .hero {
+        padding: 130px 0 60px;
+    }
+    .hero-title {
+        font-size: 32px;
+    }
+    .hero-subtitle {
+        font-size: 15px;
+    }
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .hero-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+    .stat-value {
+        font-size: 28px;
+    }
+    .stat-label {
+        font-size: 12px;
+    }
+    .stat-divider {
+        display: none;
+    }
+}
+
 /* ========================================
    Section Common
 ======================================== */
@@ -957,6 +991,24 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 18px;
     color: var(--text-gray);
     line-height: 1.7;
+}
+
+@media (max-width: 576px) {
+    .section {
+        padding: 60px 0;
+    }
+    .solutions-section {
+        padding: 60px 0;
+    }
+    .section-header {
+        margin-bottom: 40px;
+    }
+    .section-title {
+        font-size: 28px;
+    }
+    .section-subtitle {
+        font-size: 15px;
+    }
 }
 
 .section-header.light .section-title {
@@ -1232,6 +1284,32 @@ h1, h2, h3, h4, h5, h6 {
     .scene-title {
         font-size: 28px;
     }
+    .scene-benefits {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .scene-features {
+        grid-template-columns: 1fr;
+    }
+    .scene-benefits {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 16px;
+    }
+    .benefit-value {
+        font-size: 22px;
+    }
+    .benefit-label {
+        font-size: 12px;
+    }
+    .scene-desc {
+        font-size: 15px;
+    }
+    .scene-title {
+        font-size: 24px;
+    }
 }
 
 /* ========================================
@@ -1455,6 +1533,28 @@ h1, h2, h3, h4, h5, h6 {
     gap: 16px;
 }
 
+@media (max-width: 576px) {
+    .cta-section {
+        padding: 60px 0;
+    }
+    .cta-title {
+        font-size: 28px;
+    }
+    .cta-desc {
+        font-size: 15px;
+    }
+    .cta-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .cta-actions .btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+    }
+}
+
 /* ========================================
    Footer
 ======================================== */
@@ -1621,6 +1721,36 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 18px;
     color: rgba(255,255,255,0.7);
     max-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        padding: 120px 0 60px;
+    }
+    .page-hero h1 {
+        font-size: 36px;
+    }
+    .page-title {
+        font-size: 32px;
+    }
+    .page-subtitle {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-hero {
+        padding: 110px 0 50px;
+    }
+    .page-hero h1 {
+        font-size: 28px;
+    }
+    .page-title {
+        font-size: 26px;
+    }
+    .breadcrumb {
+        font-size: 12px;
+    }
 }
 
 .scene-badge {
@@ -1996,6 +2126,18 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
+
+@media (max-width: 992px) {
+    .scenarios-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .scenarios-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .scenario-features li {

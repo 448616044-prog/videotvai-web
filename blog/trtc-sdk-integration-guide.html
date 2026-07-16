@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <meta name="baidu-site-verification" content="codeva-4mRLvHLcFK" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="腾讯云TRTC实时音视频SDK集成完全指南2026版。含Web端/微信小程序/uni-app三种主流集成方案，附完整代码示例与常见错误解析。">
-    <meta name="keywords" content="腾讯云TRTC集成,TRTC SDK,实时音视频SDK,Web端TRTC,小程序TRTC集成,uniapp TRTC,VideoTV">
+    <meta name="description" content="WebRTC实时音视频SDK集成完全指南2026版。含Web端/微信小程序/uni-app三种主流集成方案，附完整代码示例与常见错误解析。">
+    <meta name="keywords" content="WebRTC集成,TRTC SDK,实时音视频SDK,Web端TRTC,小程序TRTC集成,uniapp TRTC,videotvai.com">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="腾讯云TRTC实时音视频SDK集成完全指南（2026版）">
+    <meta property="og:title" content="WebRTC实时音视频SDK集成完全指南（2026版）">
     <meta property="og:description" content="Web/小程序/uni-app三种集成方案，附完整代码示例与常见错误码解析。">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://www.videotvai.com/blog/trtc-sdk-integration-guide.html">
-    <title>腾讯云TRTC实时音视频SDK集成完全指南（2026版） | VideoTV</title>
+    <meta property="og:image" content="https://www.videotvai.com/images/hero-live.jpg">
+    <title>WebRTC实时音视频SDK集成完全指南（2026版）</title>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "腾讯云TRTC实时音视频SDK集成完全指南（2026版）",
-    "description": "腾讯云TRTC实时音视频SDK集成完全指南2026版。含Web端/微信小程序/uni-app三种主流集成方案，附完整代码示例与常见错误解析。",
+    "headline": "WebRTC实时音视频SDK集成完全指南（2026版）",
+    "description": "WebRTC实时音视频SDK集成完全指南2026版。含Web端/微信小程序/uni-app三种主流集成方案，附完整代码示例与常见错误解析。",
     "datePublished": "2026-05-01",
     "dateModified": "2026-06-17",
-    "author": { "@type": "Organization", "name": "VideoTV AI" },
-    "publisher": { "@type": "Organization", "name": "VideoTV AI" },
+    "author": { "@type": "Organization", "name": "直达播" },
+    "publisher": { "@type": "Organization", "name": "直达播" },
     "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.videotvai.com/blog/trtc-sdk-integration-guide.html" }
   }
   </script>
@@ -61,7 +63,7 @@
 <body>
     <header class="navbar">
         <div class="container navbar-content">
-            <a href="../index.html" class="logo"><span class="logo-icon">📺</span><span class="logo-text">VideoTV</span></a>
+            <a href="../index.html" class="logo"><span class="logo-icon">📺</span><span class="logo-text">直达播</span></a>
             <nav class="nav-links">
                 <a href="../live-ecommerce.html" class="nav-link">电商直播</a>
                 <a href="../live-medical.html" class="nav-link">医疗会议</a>
@@ -80,19 +82,19 @@
                 <span> · </span>
                 <span>阅读时长 8 分钟</span>
             </div>
-            <h1 class="blog-title">腾讯云TRTC实时音视频SDK集成完全指南（2026版）</h1>
+            <h1 class="blog-title">WebRTC实时音视频SDK集成完全指南（2026版）</h1>
             <p class="blog-subtitle">Web端、微信小程序、uni-app三种主流集成方案完整代码示例，附TRTC服务开通步骤与常见错误码解析。</p>
         </div>
 
         <article class="blog-content">
-            <p>腾讯云实时音视频（TRTC）是目前国内企业直播、在线教育、医疗问诊等场景中使用最广泛的实时音视频底层服务之一。很多企业在选型后会面临一个问题：<strong>SDK怎么集成到我们自己的系统里？</strong></p>
+            <p>主流云厂商实时音视频（TRTC）是目前国内企业直播、在线教育、医疗问诊等场景中使用最广泛的实时音视频底层服务之一。很多企业在选型后会面临一个问题：<strong>SDK怎么集成到我们自己的系统里？</strong></p>
             <p>本文从实操角度，覆盖三种最主流的集成场景，附可直接复制使用的代码示例。</p>
 
             <h2>一、集成前准备：开通TRTC服务</h2>
 
             <div class="step-box">
-                <h4>步骤1：腾讯云实名认证</h4>
-                <p>登录 <a href="https://cloud.tencent.com" target="_blank">腾讯云官网</a>，完成个人或企业实名认证。未实名账号无法开通TRTC服务。</p>
+                <h4>步骤1：主流云厂商实名认证</h4>
+                <p>登录 <a href="https://cloud.tencent.com" target="_blank">主流云厂商官网</a>，完成个人或企业实名认证。未实名账号无法开通TRTC服务。</p>
             </div>
 
             <div class="step-box">
@@ -255,12 +257,12 @@ Page({
     /&gt;
 &lt;/view&gt;</code></pre>
 
-            <h2>四、uni-app集成（腾讯云TRTC插件）</h2>
+            <h2>四、uni-app集成（WebRTC插件）</h2>
 
-            <p>uni-app 集成TRTC有两种方式：通过插件市场的插件，或使用腾讯云原生SDK（uni-app nvue 页面）。推荐使用插件方式，集成更快。</p>
+            <p>uni-app 集成TRTC有两种方式：通过插件市场的插件，或使用主流云厂商原生SDK（uni-app nvue 页面）。推荐使用插件方式，集成更快。</p>
 
             <h3>4.1 插件安装</h3>
-            <p>在 HBuilderX → 插件市场 → 搜索「腾讯云TRTC」→ 安装到项目。</p>
+            <p>在 HBuilderX → 插件市场 → 搜索「WebRTC」→ 安装到项目。</p>
 
             <h3>4.2 App端推流核心代码</h3>
             <pre><code>// App端推流
@@ -310,7 +312,7 @@ export default {
                     <li><code>-1007</code>：SDKAppID不匹配 — 确认前端SDKAppID与控制台创建的一致</li>
                     <li><code>-1021</code>：网络超时 — 检查服务器与TRTC接入点的网络延迟</li>
                     <li><code>-1022</code>：进房超时 — 通常是跨地域接入问题，可尝试配置就近接入</li>
-                    <li><code>-1004</code>：TRTC服务未开通 — 去腾讯云控制台开通服务</li>
+                    <li><code>-1004</code>：TRTC服务未开通 — 去主流云厂商控制台开通服务</li>
                     <li><code>-7001</code>：userSig已过期 — userSig有效期默认24小时，重新从后端获取</li>
                 </ul>
             </div>
@@ -347,8 +349,8 @@ function genUserSig(sdkAppId, secretKey, userId, EXPIRE_TIME = 86400 * 180) {
 module.exports = genUserSig;</code></pre>
 
             <div class="blog-cta">
-                <h3>VideoTV · TRTC集成实施服务</h3>
-                <p>自有技术团队，提供腾讯云TRTC SDK集成、uni-app插件开发、小程序直播定制全流程服务。支持上门驻场或远程实施。</p>
+                <h3>直达播 · TRTC集成实施服务</h3>
+                <p>自有技术团队，提供WebRTC SDK集成、uni-app插件开发、小程序直播定制全流程服务。支持上门驻场或远程实施。</p>
                 <a href="../live-products.html" class="btn">获取集成方案 →</a>
             </div>
 <p style="margin-top:12px;font-size:13px"><a href="../about.html#contact" style="color:rgba(255,255,255,0.85);text-decoration:underline">或者，直接获取免费方案 →</a></p>
@@ -357,7 +359,7 @@ module.exports = genUserSig;</code></pre>
             <ul>
                 <li><a href="ecommerce-live-streaming-guide.html">《电商直播系统搭建完整指南》</a> — 电商直播全攻略</li>
                 <li><a href="enterprise-live-pricing-2026.html">《企业直播平台多少钱？2026年价格体系解读》</a> — TRTC成本怎么算</li>
-                <li><a href="how-to-choose-live-platform.html">《腾讯云TRTC直播代理商怎么选？4个判断标准》</a> — 选代理商防坑</li>
+                <li><a href="how-to-choose-live-platform.html">《企业直播服务商怎么选？4个判断标准》</a> — 选服务商防坑</li>
             </ul>
         </article>
 
@@ -394,8 +396,31 @@ module.exports = genUserSig;</code></pre>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 VideoTV 保留所有权利 | <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2026016030号</a></p>
+            <p>© 2026 直达播 保留所有权利 | <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2026016030号-1</a></p>
         </div>
     </footer>
+<script async src="https://hm.baidu.com/hm.js?a77a0249f4adf3adcff923b5858c9cf0"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://www.videotvai.com/"},{"@type":"ListItem","position":2,"name":"blog","item":"https://www.videotvai.com/blog/"},{"@type":"ListItem","position":3,"name":"WebRTC实时音视频SDK集成完全指南（2026版）"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+  "@type": "WebPage",
+  "title": "WebRTC实时音视频SDK集成完全指南（2026版） | 直达播",
+  "description": "WebRTC实时音视频SDK集成完全指南2026版。含Web端/微信小程序/uni-app三种主流集成方案，附完整代码示例与常见错误解析。",
+  "pubDate": "2026-06-13",
+  "upDate": "2026-06-21"
+}
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"直达播是什么？","acceptedAnswer":{"@type":"Answer","text":"直达播是专注企业级直播技术的服务商，提供医疗手术示教、学术会议、私域电商、企业培训等场景的直播解决方案。核心优势：超低延迟（<1s）、AI隐私保护、全场景定制。"}},{"@type":"Question","name":"直达播支持哪些直播场景？","acceptedAnswer":{"@type":"Answer","text":"直达播支持医疗学术会议直播、手术示教系统、私域电商直播、企业培训直播、小程序直播、远程会诊等全场景。支持私有化部署，已服务500+企业。"}},{"@type":"Question","name":"如何获取直达播的直播方案？","acceptedAnswer":{"@type":"Answer","text":"访问videotvai.com联系客服，我们会根据您的场景配置专属测试环境，通常2小时内完成部署，支持1-2场免费测试直播。"}}]}</script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<p style="padding:12px 16px;background:#E6F0FA;border-radius:8px;font-size:14px">🏥 👉 <a href="/live-medical">查看医疗直播系统完整方案：手术示教/学术会议/远程会诊/合规</a></p>
+<p style="padding:12px 16px;background:#FFF3E0;border-radius:8px;font-size:14px">🛒 👉 <a href="/live-ecommerce">查看私域电商直播系统完整方案：带货/招商/小程序直播</a></p>
 </body>
 </html>
