@@ -4,3 +4,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.videotvai.com/sitemap.xml
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
