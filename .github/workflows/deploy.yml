@@ -14,51 +14,75 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Deploy to CVM
+      - name: Setup SSH key
         env:
           SSH_KEY_BASE64: ${{ secrets.CVM_SSH_KEY }}
+          CVM_HOST: ${{ secrets.CVM_HOST }}
+        run: |
+          set -e
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          if echo "$SSH_KEY_BASE64" | base64 -d &>/dev/null; then
+            echo "$SSH_KEY_BASE64" | base64 -d > ~/.ssh/deploy_key
+            echo "Base64 decoded"
+          else
+            echo "$SSH_KEY_BASE64" > ~/.ssh/deploy_key
+            echo "Plain text key"
+          fi
+          chmod 600 ~/.ssh/deploy_key
+          grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key && echo "Key format OK" || { echo "Key format ERROR"; exit 1; }
+          ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          echo "SSH key setup complete"
+
+      - name: Test SSH connection
+        env:
           CVM_HOST: ${{ secrets.CVM_HOST }}
           CVM_USER: ${{ secrets.CVM_USER }}
         run: |
           set -e
+          echo "Testing SSH to $CVM_USER@$CVM_HOST..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST << 'ENDSSH'
+            echo "SSH连接成功"
+            hostname
+            whoami
+            ls /var/www/videotvai/ | head -5
+          ENDSSH
 
-          echo "🔄 开始部署..."
+      - name: Deploy files via SCP
+        env:
+          CVM_HOST: ${{ secrets.CVM_HOST }}
+          CVM_USER: ${{ secrets.CVM_USER }}
+        run: |
+          set -e
+          echo "Listing local files:"
+          ls -1 *.html | wc -l
+          echo "Root HTML files listed above"
+          ls -1 blog/*.html 2>/dev/null | wc -l
+          echo "Blog HTML files listed above"
 
-          # 列出文件
-          echo "📁 HTML文件数: $(ls -1 *.html | wc -l)"
-          echo "📁 Blog文件数: $(ls -1 blog/*.html 2>/dev/null | wc -l)"
+          echo "SCP root files..."
+          scp -O -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no *.html $CVM_USER@$CVM_HOST:/var/www/videotvai/
 
-          # 解码 SSH 密钥
-          mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          if echo "$SSH_KEY_BASE64" | base64 -d &>/dev/null; then
-            echo "$SSH_KEY_BASE64" | base64 -d > ~/.ssh/deploy_key
-            echo "✅ 密钥已解码(Base64)"
-          else
-            echo "$SSH_KEY_BASE64" > ~/.ssh/deploy_key
-            echo "✅ 密钥已读取(明文)"
-          fi
-          chmod 600 ~/.ssh/deploy_key
-          grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key && echo "✅ 密钥格式正确" || { echo "❌ 密钥格式错误"; exit 1; }
+          echo "SCP sitemap..."
+          scp -O -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no sitemap.xml $CVM_USER@$CVM_HOST:/var/www/videotvai/
 
-          ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
+          echo "SCP blog files..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST "mkdir -p /var/www/videotvai/blog"
+          scp -O -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/
 
-          # 测试SSH
-          echo "🔌 测试SSH..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=10 $CVM_USER@$CVM_HOST "echo 'SSH OK' && hostname"
+          echo "All files transferred"
 
-          # 用 rsync 部署（比 scp 更可靠）
-          echo "📤 rsync 传输..."
-          rsync -avz --rsh="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" *.html sitemap.xml $CVM_USER@$CVM_HOST:/var/www/videotvai/
-          rsync -avz --rsh="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/
-
-          # 验证并重启nginx
-          echo "🔧 验证部署..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST 'bash -s' << 'ENDSSH'
+      - name: Verify and reload nginx
+        env:
+          CVM_HOST: ${{ secrets.CVM_HOST }}
+          CVM_USER: ${{ secrets.CVM_USER }}
+        run: |
+          set -e
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST << 'ENDSSH'
             set -e
             cd /var/www/videotvai
-            echo "📄 index.html: $(wc -l < index.html) 行"
-            echo "📄 live-health.html: $(wc -l < live-health.html) 行"
-            echo "📄 live-health.html </html>: $(grep -c '</html>' live-health.html)"
-            nginx -t && systemctl reload nginx && echo "✅ Nginx已重启"
-            echo "🎉 部署完成!"
+            echo "index.html: $(wc -l < index.html) lines"
+            echo "live-health.html: $(wc -l < live-health.html) lines"
+            echo "live-health.html has </html>: $(grep -c '</html>' live-health.html)"
+            nginx -t && systemctl reload nginx && echo "Nginx reloaded"
+            echo "Deployment complete!"
           ENDSSH
