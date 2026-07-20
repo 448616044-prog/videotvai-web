@@ -47,26 +47,14 @@ jobs:
 
           ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
 
-          echo "📤 SCP 传输文件到服务器..."
+          echo "📤 通过 tar+ssh 传输文件到服务器..."
 
-          # 获取改动文件列表
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep '\.html$' || echo "")
+          # 创建远程目录（确保 blog/ 存在）
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST "mkdir -p /var/www/videotvai/blog"
 
-          if [ -n "$CHANGED_FILES" ]; then
-            echo "📋 本次改动文件:"
-            echo "$CHANGED_FILES"
-
-            echo "$CHANGED_FILES" | while read -r f; do
-              if [ -f "$f" ]; then
-                echo "  📤 $f"
-                scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$f" $CVM_USER@$CVM_HOST:/var/www/videotvai/"$f"
-              fi
-            done
-          else
-            echo "⚠️ 未检测到HTML变动，执行全量同步..."
-            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no *.html $CVM_USER@$CVM_HOST:/var/www/videotvai/
-            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/
-          fi
+          # 用 tar over SSH 传输所有 HTML 文件（比 SCP 多文件更可靠）
+          tar czf - *.html blog/*.html sitemap.xml 2>/dev/null | \
+            ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST "cd /var/www/videotvai && tar xzf - && echo '✅ 解压完成'"
 
           echo "✅ 文件传输完成"
 
@@ -77,6 +65,7 @@ jobs:
             echo "📁 部署目录: $(pwd)"
             echo "📄 index.html 行数: $(wc -l < index.html)"
             echo "📄 live-health.html 行数: $(wc -l < live-health.html)"
+            echo "📄 remote-consultation.html 行数: $(wc -l < remote-consultation.html)"
             if [ -f "index.html" ]; then echo "✅ index.html 存在"; else echo "❌ index.html 不存在!"; exit 1; fi
             if command -v nginx &> /dev/null; then sudo nginx -t && sudo systemctl reload nginx && echo "✅ Nginx 已重启"; fi
             echo "🎉 部署流程完成!"
