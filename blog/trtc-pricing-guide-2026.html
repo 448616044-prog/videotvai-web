@@ -60,12 +60,13 @@
 }
 </script>
 </head>
+
 <body>
 <header class="navbar"><div class="container navbar-content"><a href="../index.html" class="logo"><span class="logo-icon">📺</span><span class="logo-text">直达播</span></a><nav class="nav-links"><a href="../live-ecommerce.html">电商直播</a><a href="../live-medical.html">医疗会议</a><a href="../live-surgery.html">手术示教</a><a href="../live-health.html">大健康</a><a href="../blog.html">博客</a></nav></div></header>
 <main class="blog-container">
 <div class="blog-header"><div class="blog-meta"><span class="blog-tag">选型指南</span><span>2026年6月17日</span><span> · </span><span>阅读时长 8 分钟</span></div><h1 class="blog-title">TRTC收费标准2026版：音视频通话到底多少钱一分钟？</h1></div>
 <article class="blog-content">
-<p>每次聊到WebRTC，客户问的第一个问题永远是：<strong>到底多少钱？</strong>问题在于TRTC的计费模型不是"一口价"，很多人第一次看官方定价页面直接懵了——音视频通话、云端录制、混流转码三个项目各有各的计费单位，而且不同场景差距巨大。</p>
+<p>每次聊到腾讯云TRTC，客户问的第一个问题永远是：<strong>到底多少钱？</strong>问题在于TRTC的计费模型不是"一口价"，很多人第一次看官方定价页面直接懵了——音视频通话、云端录制、混流转码三个项目各有各的计费单位，而且不同场景差距巨大。</p>
 <p>本文从4种真实业务场景出发，把TRTC的每一笔费用拆开算给你看。</p>
 
 <h2>一、TRTC计费三件套</h2>
@@ -81,7 +82,43 @@
 <h2>三、场景②：百人线上会议</h2>
 <p>典型场景：企业全员大会，100人同时在线，主持人开摄像头+共享屏幕，每周一次，每次1小时。</p>
 <h3>每月费用明细</h3>
-<table><tr><th>参数</th><th>数值</th></tr><tr><td>参会人数</td><td>100人</td></tr><tr><td>单次时长</td><td>60分钟</td></tr><tr><td>每月会议数</td><td>4次</td></tr><tr><td>下行观看总时长</td><td>100 × 60 × 4 = 24,000分钟</td></tr><tr><td>单价</td><td>0.016元/分钟</td></tr><tr><td><strong>月费</strong></td><td><strong>24,000 × 0.016 = 384元</stro
+<table><tr><th>参数</th><th>数值</th></tr><tr><td>参会人数</td><td>100人</td></tr><tr><td>单次时长</td><td>60分钟</td></tr><tr><td>每月会议数</td><td>4次</td></tr><tr><td>下行观看总时长</td><td>100 × 60 × 4 = 24,000分钟</td></tr><tr><td>单价</td><td>0.016元/分钟</td></tr><tr><td><strong>月费</strong></td><td><strong>24,000 × 0.016 = 384元</strong></td></tr></table>
+<div class="highlight"><strong>注意：</strong>如果参会者都只开语音不开视频，费用会降到音频档位（0.007元/分钟），月费不到200元。</div>
+
+<h2>四、场景③：万人直播带货</h2>
+<p>典型场景：电商直播，1个主播推流，1万人同时观看（纯观看，不连麦），每天直播4小时。</p>
+<h3>每月费用明细</h3>
+<table><tr><th>参数</th><th>数值</th></tr><tr><td>主播推流</td><td>1路（不计观看费）</td></tr><tr><td>观看人数</td><td>10,000人</td></tr><tr><td>日均直播时长</td><td>240分钟</td></tr><tr><td>月观看总时长</td><td>10,000 × 240 × 30 = 72,000,000分钟</td></tr><tr><td>单价（大用量梯级）</td><td>约0.007元/分钟</td></tr><tr><td><strong>月费</strong></td><td><strong>约504,000元</strong></td></tr></table>
+<div class="highlight"><strong>省钱建议：</strong>万人直播场景不建议直接用TRTC的实时通话模式计费。走腾讯云CSS（标准直播）的按流量/带宽计费，同样1万人观看4小时，月费可压到2-5万元。TRTC适合需要<strong>超低延迟</strong>的场次（如秒杀、连麦互动），非互动场次走CSS更划算。</div>
+
+<h2>五、场景④：在线教育小班课</h2>
+<p>典型场景：1个老师对8个学生，所有人都开摄像头（9路视频），每天10节课，每节40分钟。</p>
+<h3>每月费用明细</h3>
+<table><tr><th>参数</th><th>数值</th></tr><tr><td>房间人数</td><td>9人（1师8生）</td></tr><tr><td>单节时长</td><td>40分钟</td></tr><tr><td>日均课节</td><td>10节</td></tr><tr><td>下行分钟（9×8=72路观看）</td><td>72 × 40 × 10 × 30 = 864,000分钟</td></tr><tr><td>单价</td><td>0.011元/分钟</td></tr><tr><td><strong>月费</strong></td><td><strong>864,000 × 0.011 = 9,504元</strong></td></tr></table>
+<p>加上云端录制（所有9路视频流）约8,000元/月，混流转码（如需合屏录制）约3,000元/月，<strong>总计约2万元/月</strong>。对于每天服务80名学生的机构来说，折合每人每节课不到3元。</p>
+
+<h2>六、4个场景月费对比</h2>
+<table><tr><th>场景</th><th>纯通话费</th><th>含录制+转码</th><th>日均使用</th></tr><tr><td>1v1视频问诊</td><td>720元</td><td>920元</td><td>50次×15分钟</td></tr><tr><td>百人全员大会</td><td>384元</td><td>500元</td><td>每周1小时</td></tr><tr><td>万人带货直播</td><td>50万元</td><td>2～5万（走CSS）</td><td>日均4小时</td></tr><tr><td>小班课（9人）</td><td>9,504元</td><td>20,000元</td><td>日均400分钟</td></tr></table>
+
+<h2>七、省钱三板斧</h2>
+<h3>1. 直播场景走CSS，互动场景走TRTC</h3>
+<p>这是最重要的省钱原则。纯观看的直播（弹幕除外），根本没有必要用TRTC按分钟计费。CSS按流量计费，同样流量下成本降低一个数量级。</p>
+<h3>2. 月消耗>5万元，谈阶梯折扣</h3>
+<p>TRTC官网标注的价格是标准价。如果单个应用月消耗超过5万元，联系商务可以拿到更低的阶梯折扣。用量越大，折扣越深。</p>
+<h3>3. 音频通话单独定价</h3>
+<p>纯语音通话（不开摄像头）走音频档位，单价约0.007元/分钟，只有视频档位的一半。企业内部语音会议、远程客服完全可以只用音频。</p>
+
+<h2>八、常见问题</h2>
+<p><strong>Q：TRTC有没有免费额度？</strong><br>A：有。每月赠送10,000分钟免费时长（所有应用共享），相当于小型开发测试阶段基本不花钱。</p>
+<p><strong>Q：录制视频存多久？</strong><br>A：云端录制文件默认存储在腾讯云COS，存储费用另外计算（约0.1元/GB/月）。如果需要长期存档，建议定期下载到本地或转存低频存储。</p>
+<p><strong>Q：推流需要另外收费吗？</strong><br>A：不需要。TRTC只按每个用户的"下行观看时长"计费，推流（上行）不收费。</p>
+<p><strong>Q：能不能按房间包月？</strong><br>A：不能。TRTC不作包月，纯按量计费。好处是用多少付多少，不用担心资源浪费。</p>
+<p><strong>Q：和声网Agora比哪个便宜？</strong><br>A：两家定价模式类似，都是按分钟×人数计费。具体单价取决于用量阶梯，没有绝对的"谁更便宜"。建议根据自己预估的月用量去两家官网算一遍。</p>
+
+<div class="blog-cta"><h3>直达播 · TRTC集成与方案咨询</h3><p>不确定你的场景用TRTC还是CSS更划算？我们帮你算清楚每一笔账。直达播专注企业音视频场景，从选型评估到SDK集成到上线运维全流程支持。</p><a href="../index.html" class="btn">获取专属方案 →</a></div>
+<p style="margin-top:12px;font-size:13px"><a href="../about.html#contact" style="color:rgba(255,255,255,0.85);text-decoration:underline">或者，直接获取免费方案 →</a></p>
+</article></main>
+<footer class="footer"><div class="container"><p>© 2026 直达播 保留所有权利</p></div></footer>
 <script>
 (function(){
     var bp = document.createElement('script');
@@ -95,3 +132,5 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
+
+</body></html>
