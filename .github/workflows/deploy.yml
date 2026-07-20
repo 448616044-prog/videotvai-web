@@ -14,85 +14,62 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Deploy to CVM via SSH
-        env:
-          SSH_KEY_BASE64: ${{ secrets.CVM_SSH_KEY }}
-          CVM_HOST: ${{ secrets.CVM_HOST }}
-          CVM_USER: ${{ secrets.CVM_USER }}
+      - name: Debug - List files
         run: |
-          set -e
+          echo "📁 Root HTML files:"
+          ls -1 *.html 2>/dev/null || echo "  (none)"
+          echo "📁 Blog HTML files:"
+          ls -1 blog/*.html 2>/dev/null || echo "  (none)"
+          echo "📁 sitemap.xml:"
+          ls -la sitemap.xml 2>/dev/null || echo "  (none)"
 
-          echo "🔄 开始部署 VideoTV 网站..."
+      - name: Test SSH connection
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.CVM_HOST }}
+          username: ${{ secrets.CVM_USER }}
+          key: ${{ secrets.CVM_SSH_KEY }}
+          port: 22
+          timeout: 15s
+          script: |
+            echo "SSH连接成功"
+            hostname
+            whoami
+            ls /var/www/videotvai/ | head -5
 
-          # 调试：列出当前目录文件
-          echo "📁 当前目录文件:"
-          ls -la *.html | head -10
-          echo "📁 blog 目录:"
-          ls -la blog/*.html 2>/dev/null | head -5 || echo "  (无 blog 文件)"
+      - name: Deploy HTML files via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.CVM_HOST }}
+          username: ${{ secrets.CVM_USER }}
+          key: ${{ secrets.CVM_SSH_KEY }}
+          port: 22
+          source: "*.html,sitemap.xml"
+          target: "/var/www/videotvai/"
+          overwrite: true
 
-          # 解码 SSH 私钥
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
+      - name: Deploy blog files via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.CVM_HOST }}
+          username: ${{ secrets.CVM_USER }}
+          key: ${{ secrets.CVM_SSH_KEY }}
+          port: 22
+          source: "blog/*.html"
+          target: "/var/www/videotvai/blog/"
+          overwrite: true
 
-          if echo "$SSH_KEY_BASE64" | base64 -d &>/dev/null; then
-            echo "$SSH_KEY_BASE64" | base64 -d > ~/.ssh/deploy_key
-            echo "✅ SSH 密钥已解码（Base64 格式）"
-          else
-            echo "$SSH_KEY_BASE64" > ~/.ssh/deploy_key
-            echo "✅ SSH 密钥已读取（明文格式）"
-          fi
-
-          chmod 600 ~/.ssh/deploy_key
-
-          if grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key; then
-            echo "✅ SSH 密钥格式验证通过"
-          else
-            echo "❌ SSH 密钥格式错误"
-            exit 1
-          fi
-
-          ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
-
-          # 测试 SSH 连接
-          echo "🔌 测试 SSH 连接..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=10 $CVM_USER@$CVM_HOST "echo 'SSH连接成功' && hostname && whoami"
-
-          # 打包所有文件
-          echo "📦 打包文件..."
-          tar czf /tmp/deploy.tar.gz *.html blog/*.html sitemap.xml
-          echo "  包大小: $(du -h /tmp/deploy.tar.gz | cut -f1)"
-
-          # SCP 单个文件到服务器
-          echo "📤 传输到服务器..."
-          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no /tmp/deploy.tar.gz $CVM_USER@$CVM_HOST:/tmp/deploy.tar.gz
-          echo "✅ 传输完成"
-
-          # 远程解压并验证
-          echo "🔧 远程解压..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST 'bash -s' << 'ENDSSH'
-            set -e
+      - name: Verify deployment and reload nginx
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.CVM_HOST }}
+          username: ${{ secrets.CVM_USER }}
+          key: ${{ secrets.CVM_SSH_KEY }}
+          port: 22
+          script: |
             cd /var/www/videotvai
-            mkdir -p blog
-            tar xzf /tmp/deploy.tar.gz
-            rm /tmp/deploy.tar.gz
-            echo "📁 部署目录: $(pwd)"
             echo "📄 index.html 行数: $(wc -l < index.html)"
             echo "📄 live-health.html 行数: $(wc -l < live-health.html)"
-            echo "📄 remote-consultation.html 行数: $(wc -l < remote-consultation.html)"
             echo "📄 live-health.html 有闭合标签: $(grep -c '</html>' live-health.html)"
             nginx -t && systemctl reload nginx && echo "✅ Nginx 已重启"
-            echo "🎉 部署流程完成!"
-          ENDSSH
-
-          echo "========================================"
-          echo "📊 部署任务状态: 成功"
-          echo "⏰ 完成时间: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo "========================================"
-
-      - name: Deployment Status
-        if: always()
-        run: |
-          echo "========================================"
-          echo "📊 部署任务状态: ${{ job.status }}"
-          echo "⏰ 完成时间: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo "========================================"
+            echo "🎉 部署完成!"
