@@ -31,58 +31,60 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key && echo "Key format OK" || { echo "Key format ERROR"; exit 1; }
           ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
-          echo "SSH key setup complete"
 
-      - name: Test SSH connection
+      - name: Test SSH and check permissions
         env:
           CVM_HOST: ${{ secrets.CVM_HOST }}
           CVM_USER: ${{ secrets.CVM_USER }}
         run: |
           set -e
-          echo "Testing SSH to $CVM_USER@$CVM_HOST..."
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST << 'ENDSSH'
-            echo "SSH连接成功"
-            hostname
-            whoami
-            ls /var/www/videotvai/ | head -5
+            echo "User: $(whoami)"
+            echo "Home: $HOME"
+            echo "Can write /var/www/videotvai/: $(test -w /var/www/videotvai/ && echo YES || echo NO)"
+            echo "Can sudo: $(sudo -n true 2>/dev/null && echo YES || echo NO)"
+            ls -ld /var/www/videotvai/
           ENDSSH
 
-      - name: Deploy files via SCP
+      - name: Deploy files
         env:
           CVM_HOST: ${{ secrets.CVM_HOST }}
           CVM_USER: ${{ secrets.CVM_USER }}
         run: |
           set -e
-          echo "Listing local files:"
-          ls -1 *.html | wc -l
-          echo "Root HTML files listed above"
-          ls -1 blog/*.html 2>/dev/null | wc -l
-          echo "Blog HTML files listed above"
 
-          echo "SCP root files..."
-          scp -O -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no *.html $CVM_USER@$CVM_HOST:/var/www/videotvai/
+          # 打包所有文件
+          tar czf /tmp/deploy.tar.gz *.html blog/*.html sitemap.xml
+          echo "Package size: $(du -h /tmp/deploy.tar.gz | cut -f1)"
 
-          echo "SCP sitemap..."
-          scp -O -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no sitemap.xml $CVM_USER@$CVM_HOST:/var/www/videotvai/
+          # SCP 到 /tmp（所有用户都有写权限）
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no /tmp/deploy.tar.gz $CVM_USER@$CVM_HOST:/tmp/deploy.tar.gz
+          echo "SCP to /tmp OK"
 
-          echo "SCP blog files..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST "mkdir -p /var/www/videotvai/blog"
-          scp -O -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/
-
-          echo "All files transferred"
-
-      - name: Verify and reload nginx
-        env:
-          CVM_HOST: ${{ secrets.CVM_HOST }}
-          CVM_USER: ${{ secrets.CVM_USER }}
-        run: |
-          set -e
+          # SSH 解压到目标目录
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST << 'ENDSSH'
             set -e
             cd /var/www/videotvai
+            mkdir -p blog
+
+            # 尝试直接解压，如果权限不够则用 sudo
+            if tar xzf /tmp/deploy.tar.gz 2>/dev/null; then
+              echo "Extracted directly"
+            else
+              echo "Permission denied, using sudo..."
+              sudo tar xzf /tmp/deploy.tar.gz
+              echo "Extracted with sudo"
+            fi
+            rm -f /tmp/deploy.tar.gz
+
+            # 验证
             echo "index.html: $(wc -l < index.html) lines"
             echo "live-health.html: $(wc -l < live-health.html) lines"
-            echo "live-health.html has </html>: $(grep -c '</html>' live-health.html)"
-            nginx -t && systemctl reload nginx && echo "Nginx reloaded"
+            echo "live-health.html </html>: $(grep -c '</html>' live-health.html)"
+            echo "remote-consultation.html: $(wc -l < remote-consultation.html) lines"
+
+            # 重启 nginx
+            nginx -t 2>/dev/null && systemctl reload nginx 2>/dev/null || sudo nginx -t && sudo systemctl reload nginx
+            echo "Nginx reloaded"
             echo "Deployment complete!"
           ENDSSH
