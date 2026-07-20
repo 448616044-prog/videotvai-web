@@ -14,62 +14,51 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Debug - List files
+      - name: Deploy to CVM
+        env:
+          SSH_KEY_BASE64: ${{ secrets.CVM_SSH_KEY }}
+          CVM_HOST: ${{ secrets.CVM_HOST }}
+          CVM_USER: ${{ secrets.CVM_USER }}
         run: |
-          echo "📁 Root HTML files:"
-          ls -1 *.html 2>/dev/null || echo "  (none)"
-          echo "📁 Blog HTML files:"
-          ls -1 blog/*.html 2>/dev/null || echo "  (none)"
-          echo "📁 sitemap.xml:"
-          ls -la sitemap.xml 2>/dev/null || echo "  (none)"
+          set -e
 
-      - name: Test SSH connection
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.CVM_HOST }}
-          username: ${{ secrets.CVM_USER }}
-          key: ${{ secrets.CVM_SSH_KEY }}
-          port: 22
-          timeout: 15s
-          script: |
-            echo "SSH连接成功"
-            hostname
-            whoami
-            ls /var/www/videotvai/ | head -5
+          echo "🔄 开始部署..."
 
-      - name: Deploy HTML files via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.CVM_HOST }}
-          username: ${{ secrets.CVM_USER }}
-          key: ${{ secrets.CVM_SSH_KEY }}
-          port: 22
-          source: "*.html,sitemap.xml"
-          target: "/var/www/videotvai/"
-          overwrite: true
+          # 列出文件
+          echo "📁 HTML文件数: $(ls -1 *.html | wc -l)"
+          echo "📁 Blog文件数: $(ls -1 blog/*.html 2>/dev/null | wc -l)"
 
-      - name: Deploy blog files via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.CVM_HOST }}
-          username: ${{ secrets.CVM_USER }}
-          key: ${{ secrets.CVM_SSH_KEY }}
-          port: 22
-          source: "blog/*.html"
-          target: "/var/www/videotvai/blog/"
-          overwrite: true
+          # 解码 SSH 密钥
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          if echo "$SSH_KEY_BASE64" | base64 -d &>/dev/null; then
+            echo "$SSH_KEY_BASE64" | base64 -d > ~/.ssh/deploy_key
+            echo "✅ 密钥已解码(Base64)"
+          else
+            echo "$SSH_KEY_BASE64" > ~/.ssh/deploy_key
+            echo "✅ 密钥已读取(明文)"
+          fi
+          chmod 600 ~/.ssh/deploy_key
+          grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key && echo "✅ 密钥格式正确" || { echo "❌ 密钥格式错误"; exit 1; }
 
-      - name: Verify deployment and reload nginx
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.CVM_HOST }}
-          username: ${{ secrets.CVM_USER }}
-          key: ${{ secrets.CVM_SSH_KEY }}
-          port: 22
-          script: |
+          ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
+
+          # 测试SSH
+          echo "🔌 测试SSH..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=10 $CVM_USER@$CVM_HOST "echo 'SSH OK' && hostname"
+
+          # 用 rsync 部署（比 scp 更可靠）
+          echo "📤 rsync 传输..."
+          rsync -avz --rsh="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" *.html sitemap.xml $CVM_USER@$CVM_HOST:/var/www/videotvai/
+          rsync -avz --rsh="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/
+
+          # 验证并重启nginx
+          echo "🔧 验证部署..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $CVM_USER@$CVM_HOST 'bash -s' << 'ENDSSH'
+            set -e
             cd /var/www/videotvai
-            echo "📄 index.html 行数: $(wc -l < index.html)"
-            echo "📄 live-health.html 行数: $(wc -l < live-health.html)"
-            echo "📄 live-health.html 有闭合标签: $(grep -c '</html>' live-health.html)"
-            nginx -t && systemctl reload nginx && echo "✅ Nginx 已重启"
+            echo "📄 index.html: $(wc -l < index.html) 行"
+            echo "📄 live-health.html: $(wc -l < live-health.html) 行"
+            echo "📄 live-health.html </html>: $(grep -c '</html>' live-health.html)"
+            nginx -t && systemctl reload nginx && echo "✅ Nginx已重启"
             echo "🎉 部署完成!"
+          ENDSSH
