@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Deploy to CVM via SSH
         env:
@@ -22,7 +24,7 @@ jobs:
 
           echo "🔄 开始部署 VideoTV 网站..."
 
-          # 解码 SSH 私钥（支持 Base64 编码或不编码两种格式）
+          # 解码 SSH 私钥
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
@@ -36,7 +38,6 @@ jobs:
 
           chmod 600 ~/.ssh/deploy_key
 
-          # 验证密钥格式
           if grep -q "BEGIN OPENSSH PRIVATE KEY" ~/.ssh/deploy_key; then
             echo "✅ SSH 密钥格式验证通过"
           else
@@ -44,10 +45,8 @@ jobs:
             exit 1
           fi
 
-          # 添加服务器到 known_hosts
           ssh-keyscan -H $CVM_HOST >> ~/.ssh/known_hosts 2>/dev/null
 
-          # SCP 直接传输文件到服务器（避免 CVM->GitHub 网络超时）
           echo "📤 SCP 传输文件到服务器..."
 
           # 获取改动文件列表
@@ -57,7 +56,6 @@ jobs:
             echo "📋 本次改动文件:"
             echo "$CHANGED_FILES"
 
-            # SCP 逐个传输改动文件
             echo "$CHANGED_FILES" | while read -r f; do
               if [ -f "$f" ]; then
                 echo "  📤 $f"
@@ -66,8 +64,8 @@ jobs:
             done
           else
             echo "⚠️ 未检测到HTML变动，执行全量同步..."
-            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no *.html $CVM_USER@$CVM_HOST:/var/www/videotvai/ 2>/dev/null || true
-            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/ 2>/dev/null || true
+            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no *.html $CVM_USER@$CVM_HOST:/var/www/videotvai/
+            scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no blog/*.html $CVM_USER@$CVM_HOST:/var/www/videotvai/blog/
           fi
 
           echo "✅ 文件传输完成"
@@ -77,7 +75,9 @@ jobs:
             set -e
             cd /var/www/videotvai
             echo "📁 部署目录: $(pwd)"
-            if [ -f "index.html" ]; then echo "✅ index.html 存在"; else echo "❌ 警告: index.html 不存在!"; fi
+            echo "📄 index.html 行数: $(wc -l < index.html)"
+            echo "📄 live-health.html 行数: $(wc -l < live-health.html)"
+            if [ -f "index.html" ]; then echo "✅ index.html 存在"; else echo "❌ index.html 不存在!"; exit 1; fi
             if command -v nginx &> /dev/null; then sudo nginx -t && sudo systemctl reload nginx && echo "✅ Nginx 已重启"; fi
             echo "🎉 部署流程完成!"
           ENDSSH
