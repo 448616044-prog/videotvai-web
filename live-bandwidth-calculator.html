@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta name="baidu-site-verification" content="codeva-4mRLvHLcFK" />
+<meta charset="UTF-8">
+<meta name="lastmod" content="2026-07-23">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="直播带宽计算器：输入并发人数、码率快速计算所需带宽。医疗直播/手术示教/学术会议带宽规划工具。免费在线计算→">
+<meta name="keywords" content="直播带宽计算,直播带宽估算,医疗直播带宽,手术直播带宽要求,直播并发计算">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="直播带宽计算器2026 | 医疗直播/手术示教带宽在线估算 - 直达播">
+<meta property="og:description" content="直播带宽计算器：输入并发人数、码率快速计算所需带宽。医疗直播/手术示教/学术会议带宽规划工具。免费在线计算→">
+<title>直播带宽计算器2026 | 医疗直播/手术示教带宽在线估算 - 直达播</title>
+<link rel="canonical" href="https://www.videotvai.com/live-bandwidth-calculator">
+<link rel="stylesheet" href="style.css">
+<script async src="https://hm.baidu.com/hm.js?a77a0249f4adf3adcff923b5858c9cf0"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://www.videotvai.com/"},{"@type":"ListItem","position":2,"name":"直播带宽计算器","item":"https://www.videotvai.com/live-bandwidth-calculator"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"手术直播需要多少带宽？","acceptedAnswer":{"@type":"Answer","text":"手术直播通常需要4K高清画质（码率8-15Mbps推送端）。如果有100人同时观看：推流端需15Mbps上行；观看端总带宽=100人×15Mbps=1500Mbps（使用CDN分发后观看端无需自建大带宽）。建议推流端预留20Mbps上行带宽以确保稳定性。"}},{"@type":"Question","name":"直播带宽怎么算？","acceptedAnswer":{"@type":"Answer","text":"总带宽=并发观看人数×视频码率。例如500人同时观看1080P直播(码率5Mbps)=2500Mbps=约2.5Gbps。但使用CDN分发后，源站只需承担推流带宽（5-15Mbps），观看端由CDN节点承载。"}},{"@type":"Question","name":"医疗直播对网络有什么特殊要求？","acceptedAnswer":{"@type":"Answer","text":"医疗直播对网络有更高要求：①手术示教需要超低延迟(端到端<500ms)，建议使用WebRTC协议而非传统RTMP+HLS；②推流端建议专线或企业宽带(上行≥20Mbps)；③观看端需要稳定网络环境。直达播支持WebRTC超低延迟+CDN智能分发，适配医疗场景。"}}]}</script>
+<style>
+body{font-family:PingFang SC,Microsoft YaHei,sans-serif;color:#333;line-height:1.8;margin:0;background:#f5f7fa}
+.container{max-width:900px;margin:0 auto;padding:0 20px}
+.navbar{background:#fff;padding:16px 0;box-shadow:0 2px 8px rgba(0,0,0,.06);position:sticky;top:0;z-index:100}
+.navbar-content{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:20px;font-weight:700;color:#1a1a2e;text-decoration:none}
+.nav-links a{color:#555;text-decoration:none;margin-left:20px;font-size:14px}
+.hero{background:linear-gradient(135deg,#1a1a2e,#2d2d44);color:#fff;padding:48px 0 32px;text-align:center}
+.hero h1{font-size:26px;margin:0 12px;line-height:1.4}
+.content{background:#fff;padding:32px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);margin:-20px auto 40px}
+h2{color:#1a1a2e;font-size:20px;margin:28px 0 12px;border-bottom:2px solid #E8F2FF;padding-bottom:8px}
+.calc-box{background:#f8f9fa;border-radius:12px;padding:24px;margin:20px 0}
+.calc-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
+.calc-field{flex:1;min-width:150px}
+.calc-field label{display:block;font-size:13px;color:#666;margin-bottom:4px;font-weight:600}
+.calc-field input,.calc-field select{width:100%;padding:10px 12px;border:2px solid #ddd;border-radius:8px;font-size:16px;box-sizing:border-box}
+.calc-field input:focus,.calc-field select:focus{border-color:#0066CC;outline:none}
+.result-box{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);padding:24px;border-radius:12px;margin:20px 0;text-align:center}
+.result-label{font-size:14px;color:#666}
+.result-value{font-size:36px;font-weight:800;color:#2E7D32;margin:8px 0}
+.result-detail{font-size:14px;color:#555}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+th{background:#1a1a2e;color:#fff;padding:10px 14px;text-align:left}
+td{padding:8px 14px;border-bottom:1px solid #E0E0E0}
+tr:nth-child(even){background:#f8f9fa}
+.cta{background:linear-gradient(135deg,#0066CC,#004C99);color:#fff;text-align:center;padding:36px;border-radius:12px;margin:28px 0}
+.cta a,.cta button{display:inline-block;background:#fff;color:#0066CC;padding:14px 32px;border-radius:6px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-size:16px}
+footer{background:#1a1a2e;color:rgba(255,255,255,.5);padding:40px 0;text-align:center;font-size:14px}
+.highlight{background:#FFF3CD;padding:16px;border-radius:8px;border-left:4px solid #FFC107;margin:16px 0}
+@media(max-width:768px){.content{padding:16px}.hero h1{font-size:20px}.calc-row{flex-direction:column}}
+</style></head><body>
+<header class="navbar"><div class="navbar-content">
+<a href="index.html" class="logo">直达播</a>
+<nav class="nav-links"><a href="index.html#solutions">解决方案</a><a href="live-medical.html">医疗直播</a><a href="live-surgery.html">手术示教</a><a href="xiaoe-vs-zhidabo">平台对比</a><a href="about.html">关于我们</a></nav>
+</div></header>
+<section class="hero"><div class="container">
+<h1>📊 直播带宽计算器</h1>
+<p style="opacity:.85;font-size:16px;max-width:600px;margin:12px auto 0">快速估算医疗直播/手术示教/学术会议所需带宽，30秒出结果</p>
+</div></section>
+<div class="container"><div class="content">
+
+<div class="calc-box">
+<h2 style="margin-top:0">🔢 带宽计算</h2>
+<div class="calc-row">
+<div class="calc-field"><label>直播场景</label>
+<select id="scene" onchange="updateDefaults()">
+<option value="surgery">手术示教 (4K)</option>
+<option value="conference">学术会议 (1080P)</option>
+<option value="training">院内培训 (720P)</option>
+<option value="custom">自定义</option>
+</select></div>
+<div class="calc-field"><label>推流码率 (Mbps)</label><input type="number" id="bitrate" value="15" min="1" max="50" step="0.5" oninput="calc()"></div>
+<div class="calc-field"><label>并发观看人数</label><input type="number" id="viewers" value="100" min="1" max="100000" step="1" oninput="calc()"></div>
+<div class="calc-field"><label>冗余系数</label>
+<select id="redundancy" onchange="calc()"><option value="1.2">1.2（推荐）</option><option value="1.0">1.0（无冗余）</option><option value="1.5">1.5（高冗余）</option></select></div>
+</div>
+<button onclick="calc()" style="background:#0066CC;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:15px;cursor:pointer;font-weight:700;margin-top:8px">计算带宽 →</button>
+</div>
+
+<div class="result-box" id="result">
+<div class="result-label">所需总带宽（含冗余）</div>
+<div class="result-value" id="resultBandwidth">— Mbps</div>
+<div class="result-detail" id="resultDetail"></div>
+</div>
+
+<div class="highlight">
+<strong>💡 使用CDN分发后：</strong>推流端只需 <span id="pushBandwidth" style="font-weight:700">—</span> 上行带宽；观看端由CDN节点承载，源站无需承担全部并发带宽。
+</div>
+
+<h2>📋 不同场景带宽参考</h2>
+<table>
+<tr><th>场景</th><th>推荐码率</th><th>100人并发</th><th>500人并发</th><th>1000人并发</th></tr>
+<tr><td>手术示教 (4K)</td><td>12-15 Mbps</td><td>1200-1500 Mbps</td><td>6000-7500 Mbps</td><td>12-15 Gbps</td></tr>
+<tr><td>学术会议 (1080P)</td><td>4-6 Mbps</td><td>400-600 Mbps</td><td>2000-3000 Mbps</td><td>4-6 Gbps</td></tr>
+<tr><td>院内培训 (720P)</td><td>1.5-3 Mbps</td><td>150-300 Mbps</td><td>750-1500 Mbps</td><td>1.5-3 Gbps</td></tr>
+<tr><td>远程会诊 (1080P)</td><td>2-4 Mbps</td><td colspan="3">点对点 WebRTC，无需大带宽</td></tr>
+</table>
+
+<h2>🔄 推流 vs 观看端带宽说明</h2>
+<div style="background:#E3F2FD;padding:16px;border-radius:8px;margin:16px 0">
+<p><strong>推流端（你这边）：</strong>只需1路上行带宽 = 码率 × 冗余。例如4K手术直播推流端只需 15×1.2 = 18 Mbps 上行。</p>
+<p><strong>观看端（观众/学生）：</strong>每路下行带宽 = 观看码率（通常与推流相同或略低）。使用CDN后，观看端带宽由CDN节点提供，源站不承担。</p>
+</div>
+
+<h2>❓ 常见问题</h2>
+<div class="faq-item"><h3>Q: 手术直播需要多少带宽？</h3><p>A: 手术直播通常需要4K画质（推流码率12-15Mbps）。推流端建议预留20Mbps上行带宽。观看端使用CDN分发，100人同时观看总带宽约1500Mbps（由CDN承载）。直达播采用WebRTC技术，端到端延迟200-400ms。</p></div>
+<div class="faq-item"><h3>Q: 医院网络带宽不够怎么办？</h3><p>A: 三种方案：①部署5G/专线确保推流端上行（推荐）②降低码率到1080P（4-6Mbps）③使用直达播私有化部署，院内局域网推流+外网分发。</p></div>
+<div class="faq-item"><h3>Q: 1000人同时看直播需要多少带宽？</h3><p>A: 如果观看端直连源站：1000人×15Mbps=15Gbps（不现实）。使用CDN分发：推流端只需15-20Mbps上行，CDN智能调度各节点承担观看带宽。这是所有主流直播平台的标准做法。</p></div>
+
+<div class="cta">
+<h2 style="color:#fff;margin:0 0 12px">需要专业的医疗直播带宽方案？</h2>
+<p style="margin:0 0 20px;opacity:.9">告知直播场景和预计观众规模，30分钟出网络规划方案</p>
+<a href="tel:400-800-8888">📞 免费获取方案</a>
+</div>
+
+</div></div>
+<footer><div class="container">
+<p>直达播 © 2026 · 医疗直播专家</p>
+<p style="margin-top:8px"><a href="https://beian.miit.gov.cn/" style="color:rgba(255,255,255,.5)" target="_blank" rel="nofollow">湘ICP备2026016030号-2</a></p>
+</div></footer>
+<script>
+function updateDefaults(){const s=document.getElementById('scene').value;const b=document.getElementById('bitrate');if(s==='surgery')b.value=15;else if(s==='conference')b.value=5;else if(s==='training')b.value=2.5;calc()}
+function calc(){const v=parseInt(document.getElementById('viewers').value)||0;const b=parseFloat(document.getElementById('bitrate').value)||0;const r=parseFloat(document.getElementById('redundancy').value)||1.2;const total=v*b*r;const push=b*r;let unit,val;if(total>=1000){val=(total/1000).toFixed(1);unit='Gbps'}else{val=Math.round(total);unit='Mbps'}document.getElementById('resultBandwidth').textContent=val+' '+unit;document.getElementById('resultDetail').textContent=v+'人 × '+b+'Mbps × '+r+' 冗余';document.getElementById('pushBandwidth').textContent=push.toFixed(1)+' Mbps';if(v===0||b===0){document.getElementById('resultBandwidth').textContent='— Mbps';document.getElementById('pushBandwidth').textContent='—'}}
+calc();
+</script>
+</body></html>
