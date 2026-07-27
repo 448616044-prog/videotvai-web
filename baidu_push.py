@@ -6,8 +6,8 @@
 """
 import urllib.request, urllib.error, json, os, glob
 
-SITE = "videotvai.com"
-BAIDU_TOKEN = "2zqNR8QtonmBaAF4"  # 新账号, 独立配额~10条/天
+SITE = "https://www.videotvai.com"
+BAIDU_TOKEN = "UAVg0xt7rxpTjzaL"  # 2026-07-27 阿龙更新
 API_URL = f"http://data.zz.baidu.com/urls?site={SITE}&token={BAIDU_TOKEN}"
 BATCH_SIZE = 10
 

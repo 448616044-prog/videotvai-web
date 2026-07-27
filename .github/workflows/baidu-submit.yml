@@ -28,7 +28,7 @@ jobs:
               echo "Submitting: $url"
               curl -H "Content-Type: text/plain" \
                    --data-binary "$url" \
-                   "http://data.zz.baidu.com/urls?site=https://videotvai.com&token=2zqNR8QtonmBaAF4"
+                   "http://data.zz.baidu.com/urls?site=https://www.videotvai.com&token=UAVg0xt7rxpTjzaL"
               echo ""
             fi
           done

@@ -4,8 +4,8 @@ import requests, os, glob
 from datetime import date
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-TOKEN = '2zqNR8QtonmBaAF4'  # videotvai.com Baidu token
-API = f'http://data.zz.baidu.com/urls?site=www.videotvai.com&token={TOKEN}'
+TOKEN = 'UAVg0xt7rxpTjzaL'  # videotvai.com Baidu token (2026-07-27 更新)
+API = f'http://data.zz.baidu.com/urls?site=https://www.videotvai.com&token={TOKEN}'
 
 PUSHED = os.path.join(BASE, 'baidu_pushed.txt')
 
