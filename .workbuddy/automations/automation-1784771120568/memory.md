@@ -1,5 +1,13 @@
 # Baidu Daily Push - Automation Memory
 
+## 2026-08-05
+- **Result**: SUCCESS — 10/10 URLs pushed, remaining quota 0.
+- **Quota**: Fully consumed for today.
+
+## 2026-08-02
+- **Result**: SUCCESS — 10/10 URLs pushed, remaining quota 0.
+- **Quota**: Fully consumed for today.
+
 ## 2026-07-29
 - **Result**: SUCCESS — 10/10 URLs pushed, remaining quota 0.
 - **Detail**: Baidu API token `2zqNR8QtonmBaAF4` restored — 401 error from 7/26 resolved.
