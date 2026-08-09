@@ -17,7 +17,7 @@ jobs:
           # 获取最新的sitemap.xml
           curl -s https://www.videotvai.com/sitemap.xml > sitemap.xml
           # 提取blog文章的URL（只取最近2个，避免超过配额）
-          URLs=$(grep -oP 'https://www\.videotvai\.com/blog/[^<]+\.html' sitemap.xml | head -2)
+          URLs=$(grep -oP 'https://www\.videotvai\.com/blog/[^<]+\.html' sitemap.xml | head -10)
           echo "urls=$URLs" >> $GITHUB_OUTPUT
           echo "Found URLs: $URLs"
 
