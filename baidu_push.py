@@ -21,15 +21,15 @@ def get_local_urls():
         if fname in skip:
             continue
         if fname == "index.html":
-            urls.add(f"https://{SITE}/")
+            urls.add(f"{SITE}/")
         else:
-            urls.add(f"https://{SITE}/{fname}")
+            urls.add(f"{SITE}/{fname}")
     # blog目录HTML
     blog_dir = os.path.join(html_dir, "blog")
     if os.path.exists(blog_dir):
         for f in glob.glob(os.path.join(blog_dir, "*.html")):
             fname = os.path.basename(f)
-            urls.add(f"https://{SITE}/blog/{fname}")
+            urls.add(f"{SITE}/blog/{fname}")
     return sorted(urls)
 
 def push(urls):
