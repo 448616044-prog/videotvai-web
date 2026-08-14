@@ -12,8 +12,9 @@ PUSHED = os.path.join(BASE, 'baidu_pushed.txt')
 # Collect all HTML URLs
 urls = []
 for f in glob.glob(f'{BASE}/**/*.html', recursive=True):
-    if '404' in f or 'baidu_verify' in f: continue
-    path = f.replace(BASE, '').replace('/index.html', '/').replace('.html', '')
+    if '404' in f or 'baidu_verify' in f or 'blog-old' in f or 'admin' in f: continue
+    # .html 为 canonical：保留 .html 后缀（仅 index.html 归一为 /）
+    path = f.replace(BASE, '').replace('/index.html', '/')
     if path == '/index': path = '/'
     urls.append(f'https://www.videotvai.com{path}')
 

@@ -7,9 +7,10 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 
 urls = []
 for f in sorted(glob.glob(f'{BASE}/**/*.html', recursive=True)):
-    if '404' in f or 'baidu_verify' in f or 'blog-old' in f:
+    if '404' in f or 'baidu_verify' in f or 'blog-old' in f or 'admin' in f:
         continue
-    path = f.replace(BASE, '').replace('/index.html', '/').replace('.html', '')
+    # .html 为 canonical：保留 .html 后缀（仅 index.html 归一为 /）
+    path = f.replace(BASE, '').replace('/index.html', '/')
     if path == '/index':
         path = '/'
     urls.append(f'https://www.videotvai.com{path}')

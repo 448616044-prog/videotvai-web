@@ -14,11 +14,13 @@ BATCH_SIZE = 10
 def get_local_urls():
     urls = set()
     html_dir = os.path.dirname(os.path.abspath(__file__))
-    skip = {"baidu_verify_codeva-4mRLvHLcFK.html", "admin.html"}
+    skip = {"404.html", "admin.html", "blog-old.html"}
+    def should_skip(fname):
+        return fname in skip or fname.startswith("baidu_verify")
     # 根目录HTML
     for f in glob.glob(os.path.join(html_dir, "*.html")):
         fname = os.path.basename(f)
-        if fname in skip:
+        if should_skip(fname):
             continue
         if fname == "index.html":
             urls.add(f"{SITE}/")
@@ -29,6 +31,8 @@ def get_local_urls():
     if os.path.exists(blog_dir):
         for f in glob.glob(os.path.join(blog_dir, "*.html")):
             fname = os.path.basename(f)
+            if should_skip(fname):
+                continue
             urls.add(f"{SITE}/blog/{fname}")
     return sorted(urls)
 
