@@ -6,9 +6,10 @@
 """
 import urllib.request, urllib.error, json, os, glob
 
-SITE = "https://www.videotvai.com"
+SITE = "https://www.videotvai.com"   # URL前缀（带协议，用于生成页面地址）
+SITE_HOST = "www.videotvai.com"      # API site参数（不带协议）
 BAIDU_TOKEN = "UAVg0xt7rxpTjzaL"  # 2026-07-27 阿龙更新
-API_URL = f"http://data.zz.baidu.com/urls?site={SITE}&token={BAIDU_TOKEN}"
+API_URL = f"http://data.zz.baidu.com/urls?site={SITE_HOST}&token={BAIDU_TOKEN}"
 BATCH_SIZE = 10
 
 def get_local_urls():
