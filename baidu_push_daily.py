@@ -27,7 +27,8 @@ def push(urls):
     """推 URL，over quota 时减半降级重试，返回成功条数"""
     batch = urls[:]
     while batch:
-        resp = requests.post(API, data='\n'.join(batch), headers={'Content-Type': 'text/plain'}, timeout=15)
+        resp = requests.post(API, data='\n'.join(batch), headers={'Content-Type': 'text/plain'},
+                             timeout=15, proxies={'http': None, 'https': None})
         try:
             data = resp.json()
         except Exception:
