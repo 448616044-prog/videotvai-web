@@ -16,11 +16,17 @@ def collect_urls():
     for f in glob.glob(f'{BASE}/**/*.html', recursive=True):
         if '404' in f or 'baidu_verify' in f or 'blog-old' in f or 'admin' in f:
             continue
-        path = f.replace(BASE, '').replace('/index.html', '/')
-        if path == '/index':
+        path = f.replace(BASE, '')
+        # clean URL 化：/xxx/index.html -> /xxx/ ，/xxx.html -> /xxx
+        # 站点已配置 .html -> clean URL 的 301，推送 .html 版本会白白消耗每日 10 条配额
+        if path.endswith('/index.html'):
+            path = path[: -len('index.html')]
+        elif path.endswith('.html'):
+            path = path[: -len('.html')]
+        if path == '/' or path == '':
             path = '/'
         urls.append(f'https://www.videotvai.com{path}')
-    return urls
+    return sorted(set(urls))
 
 
 def push(urls):
@@ -58,7 +64,18 @@ def main():
             pushed_set = set(line.strip() for line in f if line.strip())
 
     new_urls = [u for u in urls if u not in pushed_set]
-    priority = sorted(new_urls, key=lambda u: 0 if '/live-surgery-' in u or '/case-' in u or 'calculator' in u else 1)
+    def rank(u):
+        # 优先级：竞品对比页(转化意图最强) > 核心商业页 > case/手术直播/工具 > 其他
+        if 'vs-zhidabo' in u:
+            return 0
+        if any(k in u for k in ('/enterprise-live', '/medical-live-platform',
+                                '/private-domain-ecommerce-live', '/live/')):
+            return 1
+        if any(k in u for k in ('/case-', '/live-surgery-', 'calculator')):
+            return 2
+        return 3
+
+    priority = sorted(new_urls, key=rank)
 
     to_push = priority[:10]
     if not to_push:
