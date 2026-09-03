@@ -13,7 +13,18 @@
 <style>.case-hero{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:100px 24px 60px;text-align:center}
 .case-body{max-width:800px;margin:0 auto;padding:40px 24px}
 .case-body h2{font-size:1.3rem;font-weight:700;margin:32px 0 12px}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"三甲医院心内科TAVR手术直播案例多少钱？","acceptedAnswer":{"@type":"Answer","text":"直达播按年费/实际用量计费，几千元到几万元/年，根据并发和功能定制，具体联系13026603164。"}},{"@type":"Question","name":"三甲医院心内科TAVR手术直播案例怎么落地？","acceptedAnswer":{"@type":"Answer","text":"从需求分析→方案设计→设备部署→实施上线→数据复盘，直达播提供一站式服务。"}},{"@type":"Question","name":"三甲医院心内科TAVR手术直播案例支持私有化部署吗？","acceptedAnswer":{"@type":"Answer","text":"支持。医疗/金融等合规敏感场景可私有化部署，数据不出内网，安全可控。"}}]}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"TAVR 手术直播需要什么级别的画质？","acceptedAnswer":{"@type":"Answer","text":"建议 4K。TAVR 的关键步骤（瓣膜定位、释放、评估返流）对细节要求很高，1080P 在放大后细节损失明显，会影响教学效果。如果院内设备只支持 1080P，至少要保证高码率编码（建议 8Mbps 以上）。"}},
+{"@type":"Question","name":"延迟多少才能做远程指导？","acceptedAnswer":{"@type":"Answer","text":"经验值是 500ms 以内。WebRTC 方案可以做到端到端 200-400ms，基本接近面对面交流的体感。传统 RTMP/HLS 方案延迟在 3-10 秒，只能做单向观摩，做不了实时指导。"}},
+{"@type":"Question","name":"手术视频可以存在医院自己的服务器吗？","acceptedAnswer":{"@type":"Answer","text":"可以。私有化部署方案下，视频流与录制文件全部存储在院内服务器，公网只承担分发，患者影像数据不出院。"}},
+{"@type":"Question","name":"能从哪些设备取流？","acceptedAnswer":{"@type":"Answer","text":"常见的 DSA 工作站（GE、西门子、飞利浦）、超声设备、监护仪、术野摄像机、腔镜主机均可取流，具体视设备的输出接口（SDI / HDMI / DVI / 网络流）而定，需要现场调研确认。"}},
+{"@type":"Question","name":"一场手术直播需要几个人配合？","acceptedAnswer":{"@type":"Answer","text":"标准配置 2 人：1 名导播负责画面切换与推流监控，1 名技术保障负责设备与网络。熟练后可压缩到 1 人，但首年建议保持 2 人配置。"}},
+{"@type":"Question","name":"直播会影响手术室正常操作吗？","acceptedAnswer":{"@type":"Answer","text":"不会。采集设备旁路取流，不介入手术设备的正常运行。摄像机与布线会在术前完成布置，并经院方感控确认。"}},
+{"@type":"Question","name":"术后视频怎么用于教学？","acceptedAnswer":{"@type":"Answer","text":"录制文件自动归档，支持按术式、术者、时间打标签，可在后台直接剪辑片段、添加解说字幕，导出为教学素材。"}},
+{"@type":"Question","name":"遇到网络故障怎么办？","acceptedAnswer":{"@type":"Answer","text":"本地录制不中断：即使推流中断，本地编码器仍在持续录制，术后可补传。同时建议配置 4G/5G 备份链路，主链路异常自动切换。"}}
+]}
+</script>
 </head><body>
 <header class="navbar" id="navbar">
         <div class="container navbar-content">
@@ -75,9 +86,108 @@
 <p style="font-size:16px;opacity:0.9;margin-top:12px">多院区200人同时观摩</p>
 </div></section>
 <div class="case-body">
-<h2>项目背景</h2><p>客户面临手术示教/远程会诊/品牌直播等场景需求，经过多家产品对比后选择直达播。案例展现了直达播在医疗/企业直播场景中的核心能力。</p>
-<h2>解决方案</h2><p>直达播提供端到端解决方案：硬件采集+软件平台+部署实施+培训支持。核心配置包括4K采集卡、编码推流一体机、以及直达播私有化部署平台。</p>
-<h2>项目成果</h2><p>系统上线后，客户的手术示教/直播活动显著提升了教学效率和品牌影响力。核心指标包括：延迟<200ms、画质4K、500+并发观看无卡顿。</p>
+<h2>心内科 TAVR 手术直播：这个场景难在哪里</h2>
+<p><strong>适用对象</strong>：三甲医院心内科 / 结构性心脏病中心 / 心血管介入培训基地</p>
+<p>TAVR（经导管主动脉瓣置换术）是心内科最高难度的介入术式之一。它的手术直播难点在于：术中要同时呈现多角度影像（DSA 透视、超声、血流动力学监测），任何一个画面延迟或卡顿，都会让远程观看的术者误判导丝与瓣膜的位置。这不是「看个热闹」的直播，是真正的教学与指导场景。</p>
+<p>第一是画面精度要求高。TAVR 手术中瓣膜释放的瞬间容错率极低，需要看清瓣膜支架的展开形态与位置，普通 1080P 直播放大后细节丢失严重，达不到教学标准。</p>
+<p>第二是延迟必须极低。远程专家指导时，如果延迟在 3-5 秒，专家说完「再往下拉 2 毫米」，画面还没跟上，等术者看到时操作已经完成——这种延迟下远程指导基本失效。</p>
+<p>第三是多路影像同步。DSA、超声、监护仪三路信号需要同屏呈现且保持同步，如果三路画面延迟不一致，会造成判读错位。</p>
+<h2>心内科 TAVR 手术直播的关键需求与实现方式</h2>
+<p>把场景拆开看，心内科 TAVR 手术直播的直播需求集中在以下 5 个维度。下表列出每一项的具体要求与对应的实现方式，供选型时逐项核对。</p>
+<div style="overflow-x:auto;margin:20px 0"><table style="width:100%;border-collapse:collapse;font-size:15px"><thead><tr style="background:#0052D9;color:#fff">
+<th style="padding:12px;text-align:left">需求维度</th>
+<th style="padding:12px;text-align:left">具体要求</th>
+<th style="padding:12px;text-align:left">实现方式</th>
+</tr></thead><tbody>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">4K 术野画质</td>
+<td style="padding:12px;color:#555">瓣膜支架展开形态、导丝位置需清晰可辨</td>
+<td style="padding:12px;color:#555">4K 采集 + 高码率编码，支持局部画面无损放大</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">超低延迟</td>
+<td style="padding:12px;color:#555">远程指导需接近实时的画面反馈</td>
+<td style="padding:12px;color:#555">WebRTC 端到端 200-400ms，支持术者与专家实时对讲</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">多路影像同屏</td>
+<td style="padding:12px;color:#555">DSA / 超声 / 监护仪三路信号同步呈现</td>
+<td style="padding:12px;color:#555">多画面导播，支持画中画与画面独立切换</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">数据不出院</td>
+<td style="padding:12px;color:#555">手术影像涉及患者隐私，需在院内闭环</td>
+<td style="padding:12px;color:#555">私有化部署，视频流与录制文件均存储在院内服务器</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">直播录制与教学归档</td>
+<td style="padding:12px;color:#555">术后需回看复盘、制作教学素材</td>
+<td style="padding:12px;color:#555">自动录制 + 章节打点 + 按术式分类归档</td>
+</tr>
+</tbody></table></div>
+<h2>方案架构：从取流到归档的四层设计</h2>
+<p>**采集层**从 DSA 工作站、超声设备、监护仪分别取流，接入 4K 采集卡与编码推流一体机；**传输层**走院内专网或专线，视频流不出院区；**平台层**部署直达播私有化平台，支持多画面导播与实时对讲；**存储层**录制文件直接写入院内存储，按术式与术者自动归档。</p>
+<h2>实施路径：从立项到常态化运行</h2>
+<p>心内科 TAVR 手术直播的落地不是「买套设备开播」这么简单，下面是标准实施路径与各阶段的交付物。周期会随院内网络条件、系统对接复杂度浮动。</p>
+<div style="overflow-x:auto;margin:20px 0"><table style="width:100%;border-collapse:collapse;font-size:15px"><thead><tr style="background:#0052D9;color:#fff">
+<th style="padding:12px;text-align:left">阶段</th>
+<th style="padding:12px;text-align:left">周期</th>
+<th style="padding:12px;text-align:left">交付物</th>
+</tr></thead><tbody>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">术式与设备调研</td>
+<td style="padding:12px;color:#555">3-5 天</td>
+<td style="padding:12px;color:#555">确认取流接口、画质要求、院内网络条件</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">私有化环境部署</td>
+<td style="padding:12px;color:#555">1-2 周</td>
+<td style="padding:12px;color:#555">院内服务器部署、网络策略开通</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">取流联调与画质校准</td>
+<td style="padding:12px;color:#555">3-5 天</td>
+<td style="padding:12px;color:#555">多路信号接入、码率与延迟调优</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">试播验证</td>
+<td style="padding:12px;color:#555">1-2 场</td>
+<td style="padding:12px;color:#555">先跑录播复盘，再跑一场非关键手术直播</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">常态化运行</td>
+<td style="padding:12px;color:#555">持续</td>
+<td style="padding:12px;color:#555">建立开播 SOP 与设备巡检机制</td>
+</tr>
+</tbody></table></div>
+<h2>常见风险与应对</h2>
+<p>以下是心内科 TAVR 手术直播项目中最容易出问题的三个环节，以及对应的预防措施。提前把这些想清楚，能避免大部分上线后的返工。</p>
+<div style="overflow-x:auto;margin:20px 0"><table style="width:100%;border-collapse:collapse;font-size:15px"><thead><tr style="background:#0052D9;color:#fff">
+<th style="padding:12px;text-align:left">风险点</th>
+<th style="padding:12px;text-align:left">应对措施</th>
+</tr></thead><tbody>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">多路画面延迟不一致导致判读错位</td>
+<td style="padding:12px;color:#555">统一时钟源，三路信号做同步对齐后再导播输出</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">院内网络带宽不足导致卡顿</td>
+<td style="padding:12px;color:#555">优先走有线专网，术前做带宽压力测试</td>
+</tr>
+<tr style="border-bottom:1px solid #E5E7EB">
+<td style="padding:12px">远程专家与术者对讲回声啸叫</td>
+<td style="padding:12px;color:#555">配置回声消除设备，术前做音频联调</td>
+</tr>
+</tbody></table></div>
+<h2>心内科 TAVR 手术直播常见问题</h2>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">TAVR 手术直播需要什么级别的画质？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">建议 4K。TAVR 的关键步骤（瓣膜定位、释放、评估返流）对细节要求很高，1080P 在放大后细节损失明显，会影响教学效果。如果院内设备只支持 1080P，至少要保证高码率编码（建议 8Mbps 以上）。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">延迟多少才能做远程指导？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">经验值是 500ms 以内。WebRTC 方案可以做到端到端 200-400ms，基本接近面对面交流的体感。传统 RTMP/HLS 方案延迟在 3-10 秒，只能做单向观摩，做不了实时指导。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">手术视频可以存在医院自己的服务器吗？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">可以。私有化部署方案下，视频流与录制文件全部存储在院内服务器，公网只承担分发，患者影像数据不出院。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">能从哪些设备取流？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">常见的 DSA 工作站（GE、西门子、飞利浦）、超声设备、监护仪、术野摄像机、腔镜主机均可取流，具体视设备的输出接口（SDI / HDMI / DVI / 网络流）而定，需要现场调研确认。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">一场手术直播需要几个人配合？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">标准配置 2 人：1 名导播负责画面切换与推流监控，1 名技术保障负责设备与网络。熟练后可压缩到 1 人，但首年建议保持 2 人配置。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">直播会影响手术室正常操作吗？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">不会。采集设备旁路取流，不介入手术设备的正常运行。摄像机与布线会在术前完成布置，并经院方感控确认。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">术后视频怎么用于教学？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">录制文件自动归档，支持按术式、术者、时间打标签，可在后台直接剪辑片段、添加解说字幕，导出为教学素材。</p>
+<h3 style="font-size:17px;margin:20px 0 8px;color:#0052D9">遇到网络故障怎么办？</h3><p style="margin:0 0 8px;color:#444;line-height:1.9">本地录制不中断：即使推流中断，本地编码器仍在持续录制，术后可补传。同时建议配置 4G/5G 备份链路，主链路异常自动切换。</p>
 <div style="text-align:center;margin:40px 0;background:#1a237e;color:#fff;padding:40px 24px;border-radius:16px">
 <h2 style="margin:0 0 12px">需要类似的直播方案？</h2>
 <a href="tel:400-XXX-XXXX" style="display:inline-block;background:#E65100;color:#fff;padding:16px 36px;border-radius:30px;font-weight:700;text-decoration:none;font-size:17px">📞 咨询定制方案</a>
@@ -85,9 +195,14 @@
 </div>
 <div style="margin:24px 0;padding:20px;background:#f8f9fa;border-radius:10px">
 <h2 style="font-size:20px;margin:0 0 16px">❓ 常见问题</h2>
-<div style="margin-bottom:12px"><strong>三甲医院心内科TAVR手术直播案例多少钱？</strong><p style="color:#555;margin-top:4px">直达播按年费/实际用量计费，几千元到几万元/年，根据并发和功能定制，具体联系13026603164。</p></div>
-<div style="margin-bottom:12px"><strong>三甲医院心内科TAVR手术直播案例怎么落地？</strong><p style="color:#555;margin-top:4px">从需求分析→方案设计→设备部署→实施上线→数据复盘，直达播提供一站式服务。</p></div>
-<div style="margin-bottom:12px"><strong>三甲医院心内科TAVR手术直播案例支持私有化部署吗？</strong><p style="color:#555;margin-top:4px">支持。医疗/金融等合规敏感场景可私有化部署，数据不出内网，安全可控。</p></div>
+<div style="margin-bottom:12px"><strong>TAVR 手术直播需要什么级别的画质？</strong><p style="color:#555;margin-top:4px">建议 4K。TAVR 的关键步骤（瓣膜定位、释放、评估返流）对细节要求很高，1080P 在放大后细节损失明显，会影响教学效果。如果院内设备只支持 1080P，至少要保证高码率编码（建议 8Mbps 以上）。</p></div>
+<div style="margin-bottom:12px"><strong>延迟多少才能做远程指导？</strong><p style="color:#555;margin-top:4px">经验值是 500ms 以内。WebRTC 方案可以做到端到端 200-400ms，基本接近面对面交流的体感。传统 RTMP/HLS 方案延迟在 3-10 秒，只能做单向观摩，做不了实时指导。</p></div>
+<div style="margin-bottom:12px"><strong>手术视频可以存在医院自己的服务器吗？</strong><p style="color:#555;margin-top:4px">可以。私有化部署方案下，视频流与录制文件全部存储在院内服务器，公网只承担分发，患者影像数据不出院。</p></div>
+<div style="margin-bottom:12px"><strong>能从哪些设备取流？</strong><p style="color:#555;margin-top:4px">常见的 DSA 工作站（GE、西门子、飞利浦）、超声设备、监护仪、术野摄像机、腔镜主机均可取流，具体视设备的输出接口（SDI / HDMI / DVI / 网络流）而定，需要现场调研确认。</p></div>
+<div style="margin-bottom:12px"><strong>一场手术直播需要几个人配合？</strong><p style="color:#555;margin-top:4px">标准配置 2 人：1 名导播负责画面切换与推流监控，1 名技术保障负责设备与网络。熟练后可压缩到 1 人，但首年建议保持 2 人配置。</p></div>
+<div style="margin-bottom:12px"><strong>直播会影响手术室正常操作吗？</strong><p style="color:#555;margin-top:4px">不会。采集设备旁路取流，不介入手术设备的正常运行。摄像机与布线会在术前完成布置，并经院方感控确认。</p></div>
+<div style="margin-bottom:12px"><strong>术后视频怎么用于教学？</strong><p style="color:#555;margin-top:4px">录制文件自动归档，支持按术式、术者、时间打标签，可在后台直接剪辑片段、添加解说字幕，导出为教学素材。</p></div>
+<div style="margin-bottom:12px"><strong>遇到网络故障怎么办？</strong><p style="color:#555;margin-top:4px">本地录制不中断：即使推流中断，本地编码器仍在持续录制，术后可补传。同时建议配置 4G/5G 备份链路，主链路异常自动切换。</p></div>
 </div>
 <footer class="footer">
         <div class="container">
